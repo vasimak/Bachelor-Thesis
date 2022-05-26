@@ -30,7 +30,7 @@ for j in np.linspace(0.1,1.7,dim):
         #x[i] = k * math.sin(math.pi * math.sinh(math.pi * math.sin(math.pi * x[i - 1])))+q; #np.sine - np.sinh
         x[i] = k *(1 + x[i - 1]) * (1 + x[i - 1]) * (2 - x[i - 1]) + q  #logistic
         #x[i] = k * (1-x[i - 1] % 1) + q #renyi
-        # x[i] = math.cos(k * math.acos(x[i - 1])) *q #cheb
+        #x[i] = math.cos(k * math.acos(x[i - 1])) *q #cheb
         #x[i] = a * abs(math.sin(pow(b,3) * math.pi * x[i - 1])) + (1 - a) * (1 - abs(math.sin(pow(k,3) * math.pi * x[i - 1] * (1 - x[i - 1]))))
         #x[i] = x(i - 1) * math.exp((k + 9) * (1 - x(i - 1))) - (k + 5) * x(i - 1) * (1 - x(i - 1))%1
     M[:,pos]=x[-130:]
