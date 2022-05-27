@@ -17,7 +17,7 @@ M=np.zeros((10000,130))
 q=-1.4
 x[1] = 0.1
 g=1
-filename="./LateX images/graphs q14/g" + str(g) +".png"
+filename="./Latex/LateX images/graphs q14/g" + str(g) +".png"
 file_path="./data3/ok q=" + str(q) +" x="+str(x[1])+".txt"
 a =0.5
 g = 9

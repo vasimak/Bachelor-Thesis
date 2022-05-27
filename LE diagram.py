@@ -6,7 +6,7 @@ import time
 start_time = time.time()
 q=-1.4
 g=6
-filename="./LateX images/graphs q14/g" + str(g) +".png"
+filename="./Latex/LateX images/graphs q14/g" + str(g) +".png"
 #file_path="./datale/logistic q=" + str(q) +".csv"
 start=0
 finish=4
