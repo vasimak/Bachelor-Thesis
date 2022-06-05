@@ -11,13 +11,13 @@ start_time = time.time()
 pos = 0
 start=0
 finish=1
-step=0.0001
+step=0.0001 
 x = np.zeros(len(range(0,1001)))
 M=np.zeros((10000,130))
-q=-1.4
+q=-2.1
 x[1] = 0.1
-g=1
-filename="./Latex/LateX images/graphs q14/g" + str(g) +".png"
+g=10
+filename="./Latex/LateX images/graphs q21/g" + str(g) +".png"
 file_path="./data3/ok q=" + str(q) +" x="+str(x[1])+".txt"
 a =0.5
 g = 9
@@ -41,8 +41,9 @@ for i in range(0,130):
 plt.xlabel("k")
 plt.ylabel("x")
 plt.savefig(filename,bbox_inches='tight',dpi=144,)
-plt.show()
 print("--- %s seconds ---" % (time.time() - start_time))
+plt.show()
+
 
 exit()
 with open(file_path, 'w+',encoding='utf-8', newline='') as f:

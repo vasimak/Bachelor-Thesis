@@ -4,12 +4,12 @@ import matplotlib.pyplot as plt
 import csv
 import time
 start_time = time.time()
-q=-1.4
-g=6
-filename="./Latex/LateX images/graphs q14/g" + str(g) +".png"
+q=-2.1
+g=2
+filename="./Latex/LateX images/graphs q21/g" + str(g) +".png"
 #file_path="./datale/logistic q=" + str(q) +".csv"
 start=0
-finish=4
+finish=1
 dim=0.001
 N=2001
 def LE(start, finish , dim ):
