@@ -1,28 +1,35 @@
-\documentclass[11pt,twoside]{report}
+\documentclass[11pt,oneside]{report}
 
 \usepackage{graphicx}
 \graphicspath{{LateX images/}}
+\usepackage[hidelinks]{hyperref} 
 \usepackage{caption}
 \usepackage{subcaption}
+\usepackage{titlesec}
+\titleformat{\chapter}[display]
+{\normalfont\bfseries}{}{0pt}{\Huge}
 \usepackage{fontspec}
-\setmainfont{CMU Serif}
-\setsansfont{CMU Sans Serif}
-\newfontfamily{\greekfont}{CMU Serif}
-\newfontfamily{\greekfontsf}{CMU Sans Serif}
+\setmainfont[Scale=0.76]{Roboto}
+\setsansfont[Scale=0.76]{Roboto}
+\newfontfamily{\greekfont}{Roboto}
+\newfontfamily{\greekfontsf}{Roboto}
 \usepackage{polyglossia}
 \setdefaultlanguage{greek}
-\usepackage[a4paper,width=150mm,top=18mm,bottom=18mm,bindingoffset=6mm]{geometry}
+\usepackage[a4paper,width=150mm,top=25mm,bottom=25mm,bindingoffset=6mm]{geometry}
 \usepackage{fancyhdr}
 \pagestyle{fancy}
 \fancyhf{}
 \fancypagestyle{plain}{}
-\fancyhead[LE,RO]{Thesis title}
-\fancyhead[RE,LO]{\leftmark}
-\fancyfoot[LO,RE]{Βασίλειος Ασημακόπουλος}
-\fancyfoot[LE,RO]{\thepage}
+%\fancyhead[LE,RO]{Thesis title}
+%\fancyhead[RE,LO]{\leftmark}
+%\fancyfoot[LO,RE]{Βασίλειος Ασημακόπουλος}
+%\fancyfoot[LE,RO]{\thepage}
 \renewcommand{\headrulewidth}{0.4pt}
 \renewcommand{\footrulewidth}{0.4pt}
-
+\renewcommand{\figurename}{Fig.}
+\makeatletter 
+\renewcommand{\thesubfigure}{\@roman\c@subfigure}
+\makeatother
 
 \title{
 	{okoko}\\
@@ -38,7 +45,9 @@
 \maketitle
 \chapter*{Ευχαριστίες}
 
+
 \chapter*{Περίληψη}
+
 
 \chapter*{Abstract}
 

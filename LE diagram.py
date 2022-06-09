@@ -10,7 +10,7 @@ filename="./Latex/LateX images/graphs q21/g" + str(g) +".png"
 #file_path="./datale/logistic q=" + str(q) +".csv"
 start=0
 finish=1
-dim=0.001
+dim=0.0001
 N=2001
 def LE(start, finish , dim ):
     e = 0.000000001
@@ -24,19 +24,22 @@ def LE(start, finish , dim ):
     for j in range(1,len(r)):
         le=0
         for i in range(2,2001):
+            #x[i] = q**r[j] *(x[i - 1] % 1)
             x[i] = r[j] * (1 + x[i - 1]) * (1 + x[i - 1]) * (2 - x[i - 1]) +q
         x1 = np.zeros(len(range(0,2001)))
         x1[1]=x[2000]
         x2 = np.zeros(len(range(0,2001)))
         x2[1]=x[2000]
         for i in range(2,2001):
+            #x1[i] = q**r[j] *(x1[i - 1] % 1)
             x1[i] = r[j] * (1 + x1[i - 1]) * (1 + x1[i - 1]) * (2 - x1[i - 1]) +q
             x2[i - 1] = x1[i - 1] + e
+            #x2[i] = q**r[j] *(x2[i - 1] % 1)
             x2[i] = r[j] * (1 + x2[i - 1]) * (1 + x2[i - 1]) * (2 - x2[i - 1]) +q
             dist=abs(x1[i]-x2[i])
             if dist>0:
                 le = le + math.log(dist/e)
-        
+    
         le2[j]=le/2000
     return(le2)
 
@@ -52,7 +55,7 @@ plt.plot(k,LElist,'.',color='black',markersize=1.5)
 plt.axhline(0)
 plt.xlabel("k")
 plt.ylabel("LE")
-plt.xlim(0,1)
+plt.xlim(0,1.1)
 plt.savefig(filename,bbox_inches='tight')
 plt.show()
 print("--- %s seconds ---" % (time.time() - start_time))
