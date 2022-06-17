@@ -5,33 +5,32 @@ import csv
 import time
     
 start_time = time.time()
-x = np.zeros(len(range(0,2001)))
-x2 = np.zeros(len(range(0,2001)))
-x1 = np.zeros(len(range(0,2001)))
-q=0
-x[1] = 0.1
+Ν=1001
+x = np.zeros(len(range(0,Ν)))
+x2 = np.zeros(len(range(0,Ν)))
+x1 = np.zeros(len(range(0,Ν)))
+q=0.3
+x[0] = 0.1
 #filename="./q=" + str(q) +".png"
 #file_path="./datale/logistic q=" + str(q) +".csv"
 start=0
-finish=4
-dim=0.001
+finish=5
+step=0.005
 N=2001
-M=np.zeros((4000,130))
+M=np.zeros((1000,130))
 pos = 0
-a = 0.9
-g = 9
-b = 9
 e = 0.000000001
-k=np.arange(start,finish,dim)
-le2=np.zeros(4000)
+k=np.arange(start,finish,step)
+le2=np.zeros(1000)
 for j in range(1,len(k)):
     le=0
-    x1[1]=x[2000]
-    x2[1]=x[2000]
-    for i in range(2,2001):
-        x[i] = k[j] * (1 + x[i - 1]) * (1 + x[i - 1]) * (2 - x[i - 1]) +q
+    x1[0]=x[1000]
+    for i in range(1,N):
+        x[i] = k * math.sin(k* math.sinh(q * math.sin(2* x[i - 1])))
+        # x[i] = k[j] * (1 + x[i - 1]) * (1 + x[i - 1]) * (2 - x[i - 1]) +q
         x1[i - 1] = x[i - 1] + e
-        x1[i] = k[j] * (1 + x1[i - 1]) * (1 + x1[i - 1]) * (2 - x1[i - 1]) +q
+        # x1[i] = k[j] * (1 + x1[i - 1]) * (1 + x1[i - 1]) * (2 - x1[i - 1]) +q
+        x1[i] = k * math.sin(k* math.sinh(q * math.sin(2* x1[i - 1])))
         dist=abs(x[i]-x1[i])
         if dist>0:
             le = le + math.log(dist/e)
@@ -59,6 +58,9 @@ plt.plot(k,LElist,'.',color='red',markersize=1.5,label = 'LE Map')
 plt.axhline(0)
 plt.xlabel("k")
 plt.ylabel("x,LE")
+figure = plt.gcf()  # get current figure
+figure.set_size_inches(32, 18)
+#plt.savefig(filename,dpi=144)
 plt.xlim(0,0.6)
 plt.legend()
 plt.show()    

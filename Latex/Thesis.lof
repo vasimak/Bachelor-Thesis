@@ -1,0 +1,81 @@
+\bgroup 
+\selectlanguage *{english}
+\egroup 
+\selectlanguage *{greek}
+\selectlanguage *{greek}
+\addvspace {10\p@ }
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {2.1}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-0.1$.\relax }}{4}{figure.caption.6}%
+\contentsline {figure}{\numberline {2.2}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-0.1$.\relax }}{4}{figure.caption.7}%
+\contentsline {figure}{\numberline {2.3}{\ignorespaces Διαγράμματα διακλάδωσης για διάφορες τιμές του $q$ (α' μέρος). \relax }}{5}{figure.caption.8}%
+\contentsline {figure}{\numberline {2.4}{\ignorespaces Διαγράμματα διακλάδωσης για διάφορες τιμές του $q$ (β' μέρος). \relax }}{6}{figure.caption.9}%
+\contentsline {figure}{\numberline {2.5}{\ignorespaces Διαγράμματα της τιμής \(x_i\) με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{7}{figure.caption.10}%
+\contentsline {figure}{\numberline {2.6}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{8}{figure.caption.11}%
+\contentsline {figure}{\numberline {2.7}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-0.3$.\relax }}{10}{figure.caption.13}%
+\contentsline {figure}{\numberline {2.8}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-0.3$.\relax }}{10}{figure.caption.14}%
+\contentsline {figure}{\numberline {2.9}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α´μέρος).\relax }}{11}{figure.caption.15}%
+\contentsline {figure}{\numberline {2.10}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β´ μέρος).\relax }}{12}{figure.caption.16}%
+\contentsline {figure}{\numberline {2.11}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-0.5$.\relax }}{14}{figure.caption.18}%
+\contentsline {figure}{\numberline {2.12}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-0.5$.\relax }}{14}{figure.caption.19}%
+\contentsline {figure}{\numberline {2.13}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{15}{figure.caption.20}%
+\contentsline {figure}{\numberline {2.14}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β´ μέρος).\relax }}{16}{figure.caption.21}%
+\contentsline {figure}{\numberline {2.15}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-0.7$.\relax }}{18}{figure.caption.23}%
+\contentsline {figure}{\numberline {2.16}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-0.7$.\relax }}{18}{figure.caption.24}%
+\contentsline {figure}{\numberline {2.17}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{19}{figure.caption.25}%
+\contentsline {figure}{\numberline {2.18}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{20}{figure.caption.26}%
+\contentsline {figure}{\numberline {2.19}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-0.7$.\relax }}{22}{figure.caption.28}%
+\contentsline {figure}{\numberline {2.20}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-0.7$\relax }}{22}{figure.caption.29}%
+\contentsline {figure}{\numberline {2.21}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{23}{figure.caption.30}%
+\contentsline {figure}{\numberline {2.22}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{24}{figure.caption.31}%
+\contentsline {figure}{\numberline {2.23}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-1.2$.\relax }}{26}{figure.caption.33}%
+\contentsline {figure}{\numberline {2.24}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-1.2$.\relax }}{26}{figure.caption.34}%
+\contentsline {figure}{\numberline {2.25}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{27}{figure.caption.35}%
+\contentsline {figure}{\numberline {2.26}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{28}{figure.caption.36}%
+\contentsline {figure}{\numberline {2.27}{\ignorespaces Διαγράμματα διακλάδωσης, για $q=-1.4$ (α' μέρος).\relax }}{30}{figure.caption.38}%
+\contentsline {figure}{\numberline {2.28}{\ignorespaces Διαγράμματα διακλάδωσης, για $q=-1.4$ (β' μέρος).\relax }}{31}{figure.caption.39}%
+\contentsline {figure}{\numberline {2.29}{\ignorespaces Διαγράμματα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-1.4$ (α' μέρος). \relax }}{32}{figure.caption.40}%
+\contentsline {figure}{\numberline {2.30}{\ignorespaces Διαγράμματα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-1.4$ (β' μέρος).\relax }}{33}{figure.caption.41}%
+\contentsline {figure}{\numberline {2.31}{\ignorespaces Διάγραμμα διακλάδωσης, για όλες τις διαφορετικές αρχικές συνθήκες $x_0$\relax }}{34}{figure.caption.42}%
+\contentsline {figure}{\numberline {2.32}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{35}{figure.caption.43}%
+\contentsline {figure}{\numberline {2.33}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{36}{figure.caption.44}%
+\contentsline {figure}{\numberline {2.34}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (γ' μέρος).\relax }}{37}{figure.caption.45}%
+\contentsline {figure}{\numberline {2.35}{\ignorespaces Διαγράμματα διακλάδωσης ,για $q=-1.6$ (α' μέρος).\relax }}{40}{figure.caption.47}%
+\contentsline {figure}{\numberline {2.36}{\ignorespaces Διαγράμματα διακλάδωσης , για $q=-1.6$ (β' μέρος).\relax }}{41}{figure.caption.48}%
+\contentsline {figure}{\numberline {2.37}{\ignorespaces Διαγράμματα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k} , για $q=-1.4$ (α´ μέρος).\relax }}{42}{figure.caption.49}%
+\contentsline {figure}{\numberline {2.38}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k} , για $q=-1.4$ (β´ μέρος).\relax }}{43}{figure.caption.50}%
+\contentsline {figure}{\numberline {2.39}{\ignorespaces Διάγραμμα διακλάδωσης, για όλες τις διαφορετικές αρχικές συνθήκες $x_0$.\relax }}{44}{figure.caption.51}%
+\contentsline {figure}{\numberline {2.40}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{44}{figure.caption.52}%
+\contentsline {figure}{\numberline {2.41}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{45}{figure.caption.53}%
+\contentsline {figure}{\numberline {2.42}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-1.9$.\relax }}{46}{figure.caption.55}%
+\contentsline {figure}{\numberline {2.43}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-1.9$.\relax }}{47}{figure.caption.56}%
+\contentsline {figure}{\numberline {2.44}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{49}{figure.caption.57}%
+\contentsline {figure}{\numberline {2.45}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{50}{figure.caption.58}%
+\contentsline {figure}{\numberline {2.46}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-2.1$.\relax }}{52}{figure.caption.60}%
+\contentsline {figure}{\numberline {2.47}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-2.1$.\relax }}{52}{figure.caption.61}%
+\contentsline {figure}{\numberline {2.48}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-2.1$.\relax }}{54}{figure.caption.62}%
+\contentsline {figure}{\numberline {2.49}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{55}{figure.caption.63}%
+\contentsline {figure}{\numberline {2.50}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{56}{figure.caption.64}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {3.1}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=-0.3$.\relax }}{59}{figure.caption.66}%
+\contentsline {figure}{\numberline {3.2}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=-0.3$.\relax }}{59}{figure.caption.67}%
+\contentsline {figure}{\numberline {3.3}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{60}{figure.caption.68}%
+\contentsline {figure}{\numberline {3.4}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{61}{figure.caption.69}%
+\contentsline {figure}{\numberline {3.5}{\ignorespaces Διαγράμματα διακλάδωσης, για $b = 2$, $q=-0.5$\relax }}{64}{figure.caption.71}%
+\contentsline {figure}{\numberline {3.6}{\ignorespaces Διαγράμματα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $b = 2$, $q=-0.5$.\relax }}{65}{figure.caption.72}%
+\contentsline {figure}{\numberline {3.7}{\ignorespaces Διαγράμματα διακλάδωσης για διάφορες τιμές του $x_0$. \relax }}{66}{figure.caption.73}%
+\contentsline {figure}{\numberline {3.8}{\ignorespaces Διαγράμματα διακλάδωσης για διάφορες τιμές του $x_0$. \relax }}{67}{figure.caption.74}%
+\contentsline {figure}{\numberline {3.9}{\ignorespaces Διάγραμμα διακλάδωσης, για όλες τις διαφορετικές αρχικές συνθήκες $x_0$\relax }}{68}{figure.caption.75}%
+\contentsline {figure}{\numberline {3.10}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{69}{figure.caption.76}%
+\addvspace {10\p@ }
+\contentsline {figure}{\numberline {4.1}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=0.8$.\relax }}{71}{figure.caption.78}%
+\contentsline {figure}{\numberline {4.2}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=0.8$.\relax }}{72}{figure.caption.79}%
+\contentsline {figure}{\numberline {4.3}{\ignorespaces Διαγράμματα διακλάδωσης για διάφορες τιμές του $k$. \relax }}{74}{figure.caption.80}%
+\contentsline {figure}{\numberline {4.4}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{75}{figure.caption.81}%
+\contentsline {figure}{\numberline {4.5}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{76}{figure.caption.82}%
+\contentsline {figure}{\numberline {4.6}{\ignorespaces Διάγραμμα διακλάδωσης, για $q=0.9$.\relax }}{77}{figure.caption.84}%
+\contentsline {figure}{\numberline {4.7}{\ignorespaces Διάγραμμα των εκθετών Lyapunov σε συνάρτηση με την παράμετρο \emph {k}, για $q=0.9$.\relax }}{78}{figure.caption.85}%
+\contentsline {figure}{\numberline {4.8}{\ignorespaces Διαγράμματα διακλάδωσης για $2.55<k<2.8$ \relax }}{78}{figure.caption.86}%
+\contentsline {figure}{\numberline {4.9}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (α' μέρος).\relax }}{80}{figure.caption.87}%
+\contentsline {figure}{\numberline {4.10}{\ignorespaces Διαγράμματα της τιμής \(x_i\) σε συνάρτηση με την τιμή \(x_{i+1}\) (β' μέρος).\relax }}{80}{figure.caption.88}%
+\addvspace {10\p@ }
+\addvspace {10\p@ }
