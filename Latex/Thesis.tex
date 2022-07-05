@@ -16,10 +16,10 @@
 \titlespacing*{\chapter}
 {0pt}{30pt}{20pt}
 \usepackage{fontspec}
-\setmainfont{CMU Serif}
-\setsansfont{CMU Serif}
-\newfontfamily{\greekfont}{CMU Serif}
-\newfontfamily{\greekfontsf}{CMU Serif}
+\setmainfont{Roboto}
+\setsansfont{Roboto}
+\newfontfamily{\greekfont}{Roboto}
+\newfontfamily{\greekfontsf}{Roboto}
 \usepackage{polyglossia}
 \setdefaultlanguage{greek}
 \setotherlanguage{english}
@@ -34,18 +34,22 @@
 \renewcommand{\headrulewidth}{0.2pt}
 \renewcommand{\footrulewidth}{0.4pt}
 \renewcommand{\figurename}{Fig.}
+\makeatletter 
+\renewcommand{\thesubfigure}{\@roman\c@subfigure}
+\makeatother
+
+
 
 %%%
-%\makeatletter 
-%\renewcommand{\thesubfigure}{\@roman\c@subfigure}
-%\makeatother
-%\usepackage[sfdefault]{CMU Serif}	
-%\usepackage{amsmath}
-%\usepackage{unicode-math}
-%\setmathfont{Fira Math}
-%\setmathfont[range=it]{CMU Serif-Italic}
-%\setmathfont[range=\int]{Fira Math}
+
+%\usepackage[sfdefault]{Roboto}	
+\usepackage{amsmath}
+\usepackage{unicode-math}
+\setmathfont{Fira Math}
+\setmathfont[range=it]{Roboto}
+\setmathfont[range=\int]{Fira Math}
 %\doublespacing
+
 %%%
 
 
@@ -67,6 +71,7 @@
 \input{chapters/Κεφάλαιο 1}
 
 \chapter{Παραλλαγή του Λογιστικού Χάρτη}
+\label{chap:kef2}
 \input{chapters/Κεφάλαιο 2}
 
 \chapter{Παραλλαγή του sine-sinh Χάρτη}
@@ -75,7 +80,7 @@
 \chapter{Παραλλαγή του Chebysev Χάρτη}
 \input{chapters/Κεφάλαιο 4}
 
-\chapter{Εφαρμογή των Χαρτών}
+\chapter{Μελέτη ρομποτικού συστήματος με λογιστικό χάρτη}
 \input{chapters/Κεφάλαιο 5}
 
 \appendix
