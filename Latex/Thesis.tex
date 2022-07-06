@@ -27,7 +27,6 @@
 \pagestyle{fancy}
 \fancyhf{}
 \fancypagestyle{plain}{}
-\fancyhead[LE,RO]{Thesis title}
 \fancyhead[RE,LO]{\leftmark}
 \fancyfoot[LO,RE]{Βασίλειος Ασημακόπουλος}
 \fancyfoot[LE,RO]{\thepage}
@@ -37,7 +36,7 @@
 \makeatletter 
 \renewcommand{\thesubfigure}{\@roman\c@subfigure}
 \makeatother
-
+\usepackage{listings}
 
 
 %%%
@@ -62,8 +61,7 @@
 
 \clearpage
 
-\listoffigures
-\listoftables
+
 \newpage
 \pagenumbering{arabic}
 
@@ -82,12 +80,13 @@
 
 \chapter{Μελέτη ρομποτικού συστήματος με λογιστικό χάρτη}
 \input{chapters/Κεφάλαιο 5}
-
+\clearpage
 \appendix
 
-\chapter{Appendix title}
+\chapter*{Παράρτημα}
 \input{chapters/appendix}
-
+\listoffigures
+\listoftables
 
 
 \end{document}
