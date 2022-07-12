@@ -1,0 +1,63 @@
+\bgroup 
+\selectlanguage *{english}
+\egroup 
+\selectlanguage *{greek}
+\selectlanguage *{greek}
+\contentsline {chapter}{\numberline {1}Θεωρητικό Υπόβαθρο}{5}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Δυναμικά Συστήματα}{5}{section.1.1}%
+\contentsline {subsection}{\numberline {1.1.1}Συνεχές Δυναμικό Σύστημα}{6}{subsection.1.1.1}%
+\contentsline {subsection}{\numberline {1.1.2}Διακριτό Δυναμικό Σύστημα}{6}{subsection.1.1.2}%
+\contentsline {section}{\numberline {1.2}Χαοτικά Συστήματα}{7}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Χαοτικά Χαρακτηριστηκά}{7}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Εργαλεία μελέτης χαοτικών συστημάτων}{7}{section.1.4}%
+\contentsline {subsection}{\numberline {1.4.1}Διάγραμμα Διακλάδωσης}{7}{subsection.1.4.1}%
+\contentsline {subsection}{\numberline {1.4.2}Εκθέτης Lyapunov}{7}{subsection.1.4.2}%
+\contentsline {subsection}{\numberline {1.4.3}To διάγραμμα $x_i - x_{i+1}$}{8}{subsection.1.4.3}%
+\contentsline {section}{\numberline {1.5}Φαινόμενα Χαοτικών Συστημάτων}{9}{section.1.5}%
+\contentsline {subsection}{\numberline {1.5.1}Διπλασιασμός Περιόδου}{9}{subsection.1.5.1}%
+\contentsline {subsection}{\numberline {1.5.2}Υστέρηση}{9}{subsection.1.5.2}%
+\contentsline {subsection}{\numberline {1.5.3}Κρίση Ελκυστών}{9}{subsection.1.5.3}%
+\contentsline {subsection}{\numberline {1.5.4}Aντιμονοτονικότητα}{9}{subsection.1.5.4}%
+\contentsline {subsection}{\numberline {1.5.5}Συνύπαρξη ελκυστών}{10}{subsection.1.5.5}%
+\contentsline {chapter}{\numberline {2}Παραλλαγή του Λογιστικού Χάρτη}{11}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Για \emph {q = -0.1} }{12}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Για \emph {q} = -0.3}{19}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Για \emph {q} = -0.5}{23}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Για \emph {q} = -0.7}{27}{section.2.4}%
+\contentsline {section}{\numberline {2.5}Για \emph {q} = -0.9}{31}{section.2.5}%
+\contentsline {section}{\numberline {2.6}Για \emph {q} = -1.2}{35}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Για \emph {q} = -1.4}{39}{section.2.7}%
+\contentsline {section}{\numberline {2.8}Για \emph {q} = -1.6}{48}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Για \emph {q} = -1.9}{56}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Για \emph {q} = -2.1}{61}{section.2.10}%
+\contentsline {section}{\numberline {2.11}Συμπεράσματα}{67}{section.2.11}%
+\contentsline {chapter}{\numberline {3}Παραλλαγή του sine-sinh Χάρτη}{69}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Για \emph {q} = -0.3}{70}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Για \emph {q} = -0.5}{73}{section.3.2}%
+\contentsline {section}{\numberline {3.3}Συμπεράσματα}{83}{section.3.3}%
+\contentsline {chapter}{\numberline {4}Παραλλαγή του Χάρτη Chebysev}{85}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Για \emph {q} = 0.8}{86}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Για \emph {q} = 0.9}{91}{section.4.2}%
+\contentsline {section}{\numberline {4.3}Συμπεράσματα}{95}{section.4.3}%
+\contentsline {chapter}{\numberline {5}Έλεγχος της Κίνησης Αυτόνομου Ρομποτικού Οχήματος με χρήση Διακριτού Χάρτη}{97}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Μαθηματική Περιγραφή}{97}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Συμπεριφορά για Μεταβλητά \emph {q, k}}{98}{section.5.2}%
+\contentsline {subsection}{\numberline {5.2.1}Για \emph {q = -1.6 , q = -1.9}}{99}{subsection.5.2.1}%
+\contentsline {subsection}{\numberline {5.2.2}Για \emph {q = -1.4 , q = -1.6}}{101}{subsection.5.2.2}%
+\contentsline {subsection}{\numberline {5.2.3}Για \emph {q = -1.9 , q = -2.1}}{103}{subsection.5.2.3}%
+\contentsline {subsection}{\numberline {5.2.4}Για \emph {k = 0.68 , k = 0.69 , k = 0.815}}{105}{subsection.5.2.4}%
+\contentsline {subsection}{\numberline {5.2.5}Για \emph {k = 0.74 , k = 0.751 , k = 0.76}}{107}{subsection.5.2.5}%
+\contentsline {section}{\numberline {5.3}Συμπεριφορά για Μεταβλητή Αρχική Θέση}{109}{section.5.3}%
+\contentsline {subsection}{\numberline {5.3.1}Για \emph {q = -2.1}}{109}{subsection.5.3.1}%
+\contentsline {subsection}{\numberline {5.3.2}Για \emph {q = -1.9}}{112}{subsection.5.3.2}%
+\contentsline {section}{\numberline {5.4}Συμπεριφορά για Μεταβαλητές Αρχικές Συνθήκες}{115}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Για \emph {q = -1.4}}{115}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}Για \emph {q = -1.6}}{118}{subsection.5.4.2}%
+\contentsline {section}{\numberline {5.5}Συμπεριφορά για Μεταβλητό \emph {h}}{119}{section.5.5}%
+\contentsline {subsection}{\numberline {5.5.1}Για \emph {q = -1.4}}{119}{subsection.5.5.1}%
+\contentsline {subsection}{\numberline {5.5.2}Για \emph {q = -1.9}}{120}{subsection.5.5.2}%
+\contentsline {subsection}{\numberline {5.5.3}Για \emph {q = -2.1}}{121}{subsection.5.5.3}%
+\contentsline {section}{\numberline {5.6}Συμπεριφορά για Μεταβαλλόμενο Αριθμό Βημάτων}{123}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Για \emph {q = -1.6}}{123}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Για \emph {q = -1.9}}{126}{subsection.5.6.2}%
+\contentsline {section}{\numberline {5.7}Συμπεράσματα}{128}{section.5.7}%
