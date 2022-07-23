@@ -38,7 +38,7 @@ e = 0.000000001
 # parameters you can change
 
 
-q = -1.4  # the main parameter that changed the original maps
+q = -0.1  # the main parameter that changed the original maps
 x[0] = 0.1  # Initial conditions
 g = 5  # Parameter only for the saved plots
 
@@ -78,7 +78,7 @@ def LE(start, finish, dim):
 
             dist = abs(x1[i] - x2[i])
             if dist > 0:
-                le = le + math.log(dist / e)
+                le += math.log(dist / e)
         le2[j] = le / (N - 1)
 
     return le2
