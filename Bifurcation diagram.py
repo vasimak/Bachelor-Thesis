@@ -11,9 +11,8 @@ import time
 from numba import jit
 import multiprocessing 
 multiprocessing.cpu_count()
+from functools import reduce
 start_time = time.time()
-
-
 
 
 
@@ -31,12 +30,13 @@ start_time = time.time()
 
 #file_path = "./data3/ok q=" + str(q) + " x=" + str(x[1]) + ".txt"
 
-r=np.arange(0,1,0.0001)
- 
+r=np.arange(0,1,0.1)
+X=[]
+Y=[]
         
 @jit(nopython=True)
 def bif(r):
-    N=1000
+    N=10
     x = np.zeros(len(range(0, N)))
     lyapunov = np.zeros(len(range(0, N)))
     x[0]=0.1
@@ -47,7 +47,8 @@ def bif(r):
 
 
 
-x1=(bif(x) for x in r)
+x1=reduce(bif,r)
+print("--- %s seconds ---" % (time.time() - start_time))
 p1 = multiprocessing.Process(target=bif)
 p2 = multiprocessing.Process(target=bif)
 p3 = multiprocessing.Process(target=bif)
@@ -56,7 +57,14 @@ p5 = multiprocessing.Process(target=bif)
 p6 = multiprocessing.Process(target=bif)
 for i,ch in enumerate(x1) :
     x2=np.ones(len(ch))*r[i]
-    plt.plot(x2,ch, ".k", alpha=1, ms=1.2)
+    print(ch)
+    #print(x2)
+    X.append(x2)
+    Y.append(ch)
+exit()
+print("--- %s seconds ---" % (time.time() - start_time))
+plt.plot(X,Y, ".k", alpha=1, ms=1.2)
+
 figure = plt.gcf()  # get current figure
 figure.set_size_inches(1920 / 40, 1080 / 40)
 print("--- %s seconds ---" % (time.time() - start_time))

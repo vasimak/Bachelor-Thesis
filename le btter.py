@@ -27,6 +27,9 @@ def le(r):
 lyapunov=(le(x) for x in r)
 for i,ch in enumerate(lyapunov) :
     x2=np.ones(len(ch))*r[i]
+    #print(ch)
+    print(len(x2))
+    #print("x",x2)
     plt.plot(x2,ch, ".k", alpha=1, ms=1.2)
 #plt.rcParams.update({"text.usetex": True})
 plt.axhline(0)
@@ -36,5 +39,4 @@ figure = plt.gcf()  # get current figure
 figure.set_size_inches(1920 / 40, 1080 / 40)
 print("--- %s seconds ---" % (time.time() - start_time))
 
-plt.show()
-lyapunov=(bif(x) for x in r)
+#plt.show()
