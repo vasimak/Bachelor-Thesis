@@ -10,6 +10,7 @@ import matplotlib as mpl
 import time
 from numba import jit
 import multiprocessing 
+from multiprocessing import Pool
 multiprocessing.cpu_count()
 from functools import reduce
 start_time = time.time()
@@ -20,7 +21,7 @@ start_time = time.time()
 # the path where the plots are saved. You can change it with yours.
 
 
-#filename = "./Latex/LateX images/sine q=" + str(q) + "/g" + str(g) + ".jpg"
+#filename = "./images/sine q=" + str(q) + "/g" + str(g) + ".jpg"
 # filename="./Latex/LateX images/graphs q21/g" + str(g) +".jpg"
 # filename="./Latex/LateX images/cheb q="+ str(q)+"/g" + str(g) +".jpg"
 
@@ -28,48 +29,60 @@ start_time = time.time()
 # the path where the the data of parameter k and x are saved
 
 
-#file_path = "./data3/ok q=" + str(q) + " x=" + str(x[1]) + ".txt"
+#file_path = "./data_folder/data q=" + str(q) + " x=" + str(x[1]) + ".txt"
 
-r=np.arange(0,1,0.1)
+r=np.arange(0,1,0.00001)
 X=[]
 Y=[]
         
 @jit(nopython=True)
 def bif(r):
-    N=10
+    N=1000
     x = np.zeros(len(range(0, N)))
-    lyapunov = np.zeros(len(range(0, N)))
     x[0]=0.1
     q=-0.1
     for i in range(1,N):
        x[i]= r *(1 + x[i - 1]) * (1 + x[i- 1]) * (2 - x[i - 1]) + q
     return (x[-130:])
+# @jit(nopython=True)
+# def bif(r):
+#     N=1000
+#     n=N-130
+#     # x3=[0]*130
+#     x3=[]
+#     #print(x3)
+#     x = np.zeros(len(range(0, N)))
+#     x=0.1
+#     q=-0.1
+#     for i in range(1,N):
+#        x = r *(1 + x) * (1 + x) * (2 - x) + q 
+#        #print(x)
+#        if i>=870: 
+#         x3.append(x) 
+#         # x3[i-870]=x
+#         #print(x3)
+#     return x3
+# x1=(bif(x)  for x in r)
+# print(list(x1))
+# exit()
+if __name__ == '__main__':
+    # create and configure the process pool
+    with Pool(4) as p:
+        
+        for i,ch in enumerate(p.map(bif,r,chunksize=2500)) :
+            x1=np.ones(len(ch))*r[i]
+            X.append(x1)
+            Y.append(ch)
+    print("--- %s seconds ---" % (time.time() - start_time))
 
 
-
-x1=reduce(bif,r)
-print("--- %s seconds ---" % (time.time() - start_time))
-p1 = multiprocessing.Process(target=bif)
-p2 = multiprocessing.Process(target=bif)
-p3 = multiprocessing.Process(target=bif)
-p4 = multiprocessing.Process(target=bif)
-p5 = multiprocessing.Process(target=bif)
-p6 = multiprocessing.Process(target=bif)
-for i,ch in enumerate(x1) :
-    x2=np.ones(len(ch))*r[i]
-    print(ch)
-    #print(x2)
-    X.append(x2)
-    Y.append(ch)
-exit()
-print("--- %s seconds ---" % (time.time() - start_time))
 plt.plot(X,Y, ".k", alpha=1, ms=1.2)
 
 figure = plt.gcf()  # get current figure
 figure.set_size_inches(1920 / 40, 1080 / 40)
 print("--- %s seconds ---" % (time.time() - start_time))
 
-plt.show()
+#plt.show()
 
 exit()
 with open(file_path, "w+", encoding="utf-8", newline="") as f:

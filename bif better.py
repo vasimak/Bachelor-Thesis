@@ -8,9 +8,7 @@ from numba import jit
 import numpy as np
 import multiprocessing
 from multiprocessing import Pool
-from joblib import Parallel, delayed
-import ray
-import threading 
+
 start_time = time.time()
 
 r=np.arange(0,1,0.0001)
@@ -18,46 +16,41 @@ X=[]
 Y=[]
 X1=[]
 Y1=[]
+# @jit(nopython=True)
+# def bif(r):
+#     N=1000
+#     x = np.zeros(len(range(0, N)))
+#     x[0]=0.1
+#     q=-0.1
+#     for i in range(1,N):
+#        x[i]= r *(1 + x[i - 1]) * (1 + x[i- 1]) * (2 - x[i - 1]) + q
+#     return (x[-130:])   
 @jit(nopython=True)
 def bif(r):
     N=1000
+    x3=[] 
     x = np.zeros(len(range(0, N)))
-   
-    x[0]=0.1
+    x=0.1
     q=-0.1
     for i in range(1,N):
-       x[i]= r *(1 + x[i - 1]) * (1 + x[i- 1]) * (2 - x[i - 1]) + q
-    return (x[-130:])   
- 
+       x = r *(1 + x) * (1 + x) * (2 - x) + q 
+       if i>=870: 
+        x3.append(x)      
+    return x3
 
 @jit(nopython=True)
 def le(r):
     N=1000
     k=np.arange(0,1,0.0001)
-    x = np.zeros(len(range(0, N)))
     lyapunov = np.zeros(len(range(0, len(k))))
     l1= np.zeros(len(range(0, len(k))))
-    x[0]=0.1
+    x=0.1
     q=-0.1
     for i in range(1,N):
-       x[i]= r *((1 + x[i - 1]))**2* (2 - x[i - 1]) + q
-       lyapunov += np.log(abs(-3*r*(x[i-1]**2-1))) #derivative of the equation you calculate 
+       x= r *((1 + x))**2* (2 - x) + q
+       lyapunov += np.log(np.abs(-3*r*(x**2-1))) #derivative of the equation you calculate 
        l1=lyapunov/N
     return (l1) 
-
-
-# for i,ch in enumerate(output) :
-#     x2=np.ones(len(ch))*r[i]
-#     plt.plot(x2,ch, ".k", alpha=1, ms=1.2)
-    # for i,ch in enumerate(output1) :
-    #     x2=np.ones(len(ch))*r[i]
-    #     plt.plot(x2,ch, ".k", alpha=1, ms=1.2)
-
-# lyapunov=(bif(x) for x in r)
-# for i,ch in enumerate(lyapunov) :
-#     x2=np.ones(len(ch))*r[i]
-#     plt.plot(x2,ch, ".k", alpha=1, ms=1.2)
-#plt.rcParams.update({"text.usetex": True})
 
 
 if __name__ == '__main__':
@@ -87,4 +80,4 @@ figure.set_size_inches(1920 / 40, 1080 / 40)
 #plt.rcParams.update({"text.usetex": True})
 print("--- %s seconds ---" % (time.time() - start_time))
 
-#plt.show()
+plt.show()
