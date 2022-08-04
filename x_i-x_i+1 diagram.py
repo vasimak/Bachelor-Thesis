@@ -1,8 +1,6 @@
 #x_i - x_(i+1) diagram
 
-
 import math
-
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -12,7 +10,7 @@ g = 10
 
 # filename="./Latex/LateX images/sine q="+ str(q)+"/g" + str(g) +".png"
 # filename="./Latex/LateX images/graphs q19/" + str(k) +".png"
-filename = "./Latex/LateX images/cheb q=" + str(q) + "/g" + str(g) + ".png"
+#filename = "./Latex/LateX images/cheb q=" + str(q) + "/g" + str(g) + ".png"
 
 N = 10**6 + 1
 x = np.zeros(len(range(0, N)))
@@ -31,5 +29,5 @@ ypoints = x[301:]
 plt.plot(xpoints, ypoints, ".", color="black", markersize=1)
 plt.xlabel("x(i)")
 plt.ylabel("x(i+1)")
-plt.savefig(filename, bbox_inches="tight")
+#plt.savefig(filename, bbox_inches="tight")
 plt.show()

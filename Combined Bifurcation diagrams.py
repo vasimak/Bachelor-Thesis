@@ -3,7 +3,7 @@ import csv
 import math
 import time
 from cmath import inf
-
+from numba import njit
 import matplotlib.pyplot as plt
 import numpy as np
 
@@ -11,15 +11,16 @@ start_time = time.time()
 start = 0
 finish = 4.2
 step = 0.000105
-x = np.zeros(len(range(0, 1001)))
-M = np.zeros((40000, 130))
-q = -0.5
+
 g = 11
 # filename="./Latex/LateX images/graphs q16/g" + str(g) +".png"
-filename = "./Latex/LateX images/sine q=" + str(q) + "/g" + str(g) + ".png"
+#filename = "./Latex/LateX images/sine q=" + str(q) + "/g" + str(g) + ".png"
 
-
+@njit
 def bif(arxikes):
+    x = np.zeros(len(range(0, 1001)))
+    M = np.zeros((40000, 130))
+    q = -0.5
     pos = 0
     x[0] = arxikes
     for k in np.arange(start, finish, step):
@@ -72,6 +73,6 @@ plt.xlabel("k")
 plt.ylabel("x")
 figure = plt.gcf()  # get current figure
 figure.set_size_inches(1920 / 40, 1080 / 40)
-plt.savefig(filename, dpi=40)
+#plt.savefig(filename, dpi=40)
 print("--- %s seconds ---" % (time.time() - start_time))
 plt.show()
