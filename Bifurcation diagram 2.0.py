@@ -13,9 +13,18 @@ import multiprocessing
 from multiprocessing import Pool
 multiprocessing.cpu_count()
 from functools import reduce
+import PySimpleGUI as sg
+
+
+sg.theme('DarkAmber')
 start_time = time.time()
+
+
+
 mpl.use('qtagg')
 mpl.rcParams['path.simplify_threshold'] = 1.0
+
+
 
 
 # the path where the plots are saved. You can change it with yours.
