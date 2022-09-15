@@ -65,12 +65,12 @@ if __name__ == '__main__':
             Y.append(ch)
     print("--- %s seconds ---" % (time.time() - start_time))
 
-plt.style.use('dark_background')      
-plt.plot(X,Y, ".w", alpha=1, ms=1.2)
-figure = plt.gcf()  # get current figure
-figure.set_size_inches(1920 / 40, 1080 / 40)
-print("--- %s seconds ---" % (time.time() - start_time))
-plt.show()
+    plt.style.use('dark_background')      
+    plt.plot(X,Y, ".w", alpha=1, ms=1.2)
+    figure = plt.gcf()  # get current figure
+    figure.set_size_inches(1920 / 40, 1080 / 40)
+    print("--- %s seconds ---" % (time.time() - start_time))
+    plt.show()
 
 # with open(file_path, "w+", encoding="utf-8", newline="") as f:
 #     for i in range(10000):
