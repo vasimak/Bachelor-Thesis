@@ -120,8 +120,7 @@ def bif_window():
         print(values)
         if event == 'Enter':
 
-            o=all((bool(re.search("((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9]+)",str(i)))) for i in values.values())
-            print(o)
+            o=all((bool(re.fullmatch("((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])",str(i)))) for i in values.values())
             if not o:
                 sg.popup(
                     "Insert only numbers and characters like '+', '-', '.', '*' ")
