@@ -88,6 +88,167 @@ def le(q0, x0, r):
     return (l1)
 
 
+@jit(nopython=True, parallel=True)
+def log_bif(x0, r):
+    N = 1000
+    x = np.zeros(len(range(0, N)))
+    x[0] = x0
+    for i in range(1, N):
+        x[i] = r * x[i-1] * (1 - x[i-1])
+    return (x[-130:])
+
+
+@jit(nopython=True, parallel=True)
+def log_le(x0, r):
+    N = 1000
+    lyapunov = 0
+    l1 = 0
+    x = x0
+    for i in range(1, N):
+        x = x = r * x * (1 - x)
+        # derivative of the equation you calculate
+        lyapunov += np.log(np.abs(r - 2*r*x))
+        l1 = lyapunov/N
+    return (l1)
+
+
+@jit(nopython=True, parallel=True)
+def cheb_bif(x0, r):
+    N = 1000
+    x = np.zeros(len(range(0, N)))
+    x[0] = x0
+    for i in range(1, N):
+        x[i] = math.cos(r*math.acos(x[i-1]))
+    return (x[-130:])
+
+
+@jit(nopython=True)
+def cheb_le(x0, r):
+    N = 1000
+    lyapunov = 0
+    l1 = 0
+    x = x0
+    for i in range(1, N):
+        x = math.cos(r*math.acos(x))
+        # derivative of the equation you calculate
+        lyapunov += np.log(np.abs(r*math.sin(r*math.acos(x)) /
+                           (math.sqrt((1-x**2)))))
+        l1 = lyapunov/N
+    return (l1)
+
+
+@jit(nopython=True, parallel=True)
+def sine_sinh_bif(x0, r):
+    N = 1000
+    x = np.zeros(len(range(0, N)))
+    x[0] = x0
+    for i in range(1, N):
+        x[i] = r*math.sin(math.pi*math.sinh(math.pi*math.sin(math.pi*x[i-1])))
+    return (x[-130:])
+
+
+@jit(nopython=True)
+def sine_sinh_le(x0, r):
+    N = 1000
+    lyapunov = 0
+    l1 = 0
+    x = x0
+    for i in range(1, N):
+        x = r*math.sin(math.pi*math.sinh(math.pi*math.sin(math.pi*x)))
+        # derivative of the equation you calculate
+        lyapunov += np.log(np.abs(math.pi**3*r*math.cos(math.pi*x)*math.cosh(math.pi*math.sin(math.pi*x))*math.cos(math.pi*math.sinh(math.sin(math.pi*x)))))
+        l1 = lyapunov/N
+    return (l1)
+
+@jit(nopython=True, parallel=True)
+def renyi_bif(x0, r):
+    N = 1000
+    x = np.zeros(len(range(0, N)))
+    x[0] = x0
+    for i in range(1, N):
+        x[i]=np.mod(r*x[i-1],1)
+    return (x[-130:])
+
+@jit(nopython=True)
+def renyi_le(x0, r):
+    N = 1000
+    lyapunov = 0
+    l1 = 0
+    x = x0
+    for i in range(1, N):
+        x=np.mod(r*x,1)
+        # derivative of the equation you calculate
+        lyapunov += np.log(np.abs(np.mod(r,1)))
+        l1 = lyapunov/N
+    return (l1)
+
+@jit(nopython=True, parallel=True)
+def sine_bif(x0, r):
+    N = 1000
+    x = np.zeros(len(range(0, N)))
+    x[0] = x0
+    for i in range(1, N):
+        x[i]=r*math.sin(math.pi*x[i-1])
+    return (x[-130:])
+
+@jit(nopython=True)
+def sine_le(x0, r):
+    N = 1000
+    lyapunov = 0
+    l1 = 0
+    x = x0
+    for i in range(1, N):
+        x=r*math.sin(math.pi*x)
+        # derivative of the equation you calculate
+        lyapunov += np.log(np.abs(math.pi*r*math.cos(math.pi*x)))
+        l1 = lyapunov/N
+    return (l1)
+
+jit(nopython=True, parallel=True)
+def cubic_logistic_bif(x0, r):
+    N = 1000
+    x = np.zeros(len(range(0, N)))
+    x[0] = x0
+    for i in range(1, N):
+        x[i]=r*x[i-1]*(1-x[i-1])*(2+x[i-1])
+    return (x[-130:])
+
+@jit(nopython=True)
+def cubic_logistic_le(x0, r):
+    N = 1000
+    lyapunov = 0
+    l1 = 0
+    x = x0
+    for i in range(1, N):
+        x=r*x*(1-x)*(2+x)
+        # derivative of the equation you calculate
+        lyapunov += np.log(np.abs(-r*(3*x**2+2*x-2)))
+        l1 = lyapunov/N
+    return (l1)
+
+jit(nopython=True, parallel=True)
+def cubic_bif(x0, r):
+    N = 1000
+    x = np.zeros(len(range(0, N)))
+    x[0] = x0
+    for i in range(1, N):
+        x[i]=r*x[i-1]*(1-x[i-1]**2)
+    return (x[-130:])
+
+@jit(nopython=True)
+def cubic_le(x0, r):
+    N = 1000
+    lyapunov = 0
+    l1 = 0
+    x = x0
+    for i in range(1, N):
+        x=r*x*(1-x**2)
+        # derivative of the equation you calculate
+        lyapunov += np.log(np.abs(r-3*r*x**2))
+        l1 = lyapunov/N
+    return (l1)
+# x(i)=r*x(i-1)*(1-x(i-1))*(2+x(i-1))%cubic logistic −r*(3*x^2+2*x−2)
+# x(i)=r(j)*x(i-1)*(1-x(i-1)^2) %cubic r−3*r*x^2
 def extralogistic_window():
 
     layout = [
@@ -113,7 +274,8 @@ def extralogistic_window():
         )],
         [sg.Button('Exit')],
     ]
-    window = sg.Window("Bifurcation Plot", layout, resizable=True, finalize=True, grab_anywhere=True)
+    window = sg.Window("Plots", layout,
+                       resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
 
@@ -182,7 +344,8 @@ def extralogistic_window():
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
             fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
-            # ax.cla()
+            ax.cla()
+            ax.axhline(0)
             ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
             rs = RectangleSelector(ax, line_select_callback,
                                    drawtype='box', useblit=False, button=[1],
@@ -214,7 +377,7 @@ def extralogistic_window():
             ax = fig.add_subplot(212)
             ax.cla()
             ax.plot(X1, Y1, ".r", alpha=1, ms=1.2)
-            plt.axhline(0)
+            ax.axhline(0)
             plt.xlabel("k")
             plt.ylabel("x,LE")
 
@@ -232,51 +395,1075 @@ def extralogistic_window():
     window.close()
 
 
-def main():
-    layout = [  [sg.Text('Choose the Plot you want to run')],
-                [sg.Button('Variation of Logistic Map', key="open")], 
-                [sg.Button( 'Chebyshev Map', key="open1")],
-                [sg.Button('Sine-Sinh Map', key="open2")],
-                [sg.Button('Exit'),sg.B('Help')]
-              ]
-    layout_popup = [[sg.Text(
-        "Insert the four values, and click the three buttons. Example above:\nInitial x = 0 \nq =-0.1 \nInitial r=0 \nEnd of r=1\nSteps=10000")], [sg.Button("OK")]]
-    window = sg.Window('Bifurcation diagram',  layout, size=(
-        500, 500), resizable=True, finalize=True, grab_anywhere=True)
-    #window.bind('<Configure>', "Configure")
-    window_help = sg.Window("Help", layout_popup)
+def logistic_window():
+
+    layout = [
+        [sg.Text('Give Initial Values for Plot', key="new")],
+        [sg.Text('Initial x',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Initial r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('End of r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Steps',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Button('Bifurcation Plot')],
+        [sg.Button('Lyapunov Plot')],
+        [sg.Button('Combined Plots')],
+        [sg.Canvas(key='controls_cv')],
+        [sg.Column(
+            layout=[
+                [sg.Canvas(key='fig_cv',
+                               # it's important that you set this size
+                               size=(400 * 2, 400)
+                           )]
+            ],
+            background_color='#DAE0E6',
+            pad=(0, 0)
+        )],
+        [sg.Button('Exit')],
+    ]
+    window = sg.Window("Bifurcation Plot", layout,
+                       resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
+
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        print(values)
+
+        values_new = {}
+        if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
+            for i, key in enumerate(values.keys()):
+                if i <= 3:
+                    values_new[key] = values[key]
+                    print(values_new)
+                o = all((bool(re.fullmatch(
+                    "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
+                if not o:
+                    sg.popup(
+                        "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    window.close()
+                    continue
+
+        r = np.arange(float(values[1]), float(values[2]), float(values[3]))
+        x0 = float(values[0])
+        bif1 = partial(log_bif, x0)
+        le1 = partial(log_le, x0)
+
+        #start_time = time.time()
+
+        if event == 'Bifurcation Plot':
+
+            X = []
+            Y = []
+            # create and configure the process pool
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            line = ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # window.FindElement().Update('')
+            window.refresh()
+            continue
+        if event == 'Lyapunov Plot':
+
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
+            ax.axhline(0)
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            window.refresh()
+            continue
+        if event == 'Combined Plots':
+            X = []
+            Y = []
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+
+            fig = figure.Figure()
+            ax = fig.add_subplot(211)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+            ax = fig.add_subplot(212)
+            ax.cla()
+            ax.plot(X1, Y1, ".r", alpha=1, ms=1.2)
+            ax.axhline(0)
+            plt.xlabel("k")
+            plt.ylabel("x,LE")
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            window.refresh()
+            continue
+
+    window.close()
+
+
+def chebysev_window():
+
+    layout = [
+        [sg.Text('Give Initial Values for Plot', key="new")],
+        [sg.Text('Initial x',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Initial r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('End of r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Steps',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Button('Bifurcation Plot')],
+        [sg.Button('Lyapunov Plot')],
+        [sg.Button('Combined Plots')],
+        [sg.Canvas(key='controls_cv')],
+        [sg.Column(
+            layout=[
+                [sg.Canvas(key='fig_cv',
+                               # it's important that you set this size
+                               size=(400 * 2, 400)
+                           )]
+            ],
+            background_color='#DAE0E6',
+            pad=(0, 0)
+        )],
+        [sg.Button('Exit')],
+    ]
+    window = sg.Window("Bifurcation Plot", layout,
+                       resizable=True, finalize=True, grab_anywhere=True)
+
+    while True:
+
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        print(values)
+
+        values_new = {}
+        if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
+            for i, key in enumerate(values.keys()):
+                if i <= 3:
+                    values_new[key] = values[key]
+                    print(values_new)
+                o = all((bool(re.fullmatch(
+                    "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
+                if not o:
+                    sg.popup(
+                        "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    window.close()
+                    continue
+
+        r = np.arange(float(values[1]), float(values[2]), float(values[3]))
+        x0 = float(values[0])
+        bif1 = partial(cheb_bif, x0)
+        le1 = partial(cheb_le, x0)
+
+        #start_time = time.time()
+
+        if event == 'Bifurcation Plot':
+
+            X = []
+            Y = []
+            # create and configure the process pool
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            line = ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # window.FindElement().Update('')
+            window.refresh()
+            continue
+        if event == 'Lyapunov Plot':
+
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
+            ax.axhline(0)
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            window.refresh()
+            continue
+        if event == 'Combined Plots':
+            X = []
+            Y = []
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+
+            fig = figure.Figure()
+            ax = fig.add_subplot(211)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+            ax = fig.add_subplot(212)
+            ax.cla()
+            ax.plot(X1, Y1, ".r", alpha=1, ms=1.2)
+            ax.axhline(0)
+            plt.xlabel("k")
+            plt.ylabel("x,LE")
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            window.refresh()
+            continue
+
+    window.close()
+
+
+def sine_sinh_window():
+
+    layout = [
+        [sg.Text('Give Initial Values for Plot', key="new")],
+        [sg.Text('Initial x',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Initial r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('End of r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Steps',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Button('Bifurcation Plot')],
+        [sg.Button('Lyapunov Plot')],
+        [sg.Button('Combined Plots')],
+        [sg.Canvas(key='controls_cv')],
+        [sg.Column(
+            layout=[
+                [sg.Canvas(key='fig_cv',
+                               # it's important that you set this size
+                               size=(400 * 2, 400)
+                           )]
+            ],
+            background_color='#DAE0E6',
+            pad=(0, 0)
+        )],
+        [sg.Button('Exit')],
+    ]
+    window = sg.Window("Bifurcation Plot", layout,
+                       resizable=True, finalize=True, grab_anywhere=True)
+
+    while True:
+
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        print(values)
+
+        values_new = {}
+        if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
+            for i, key in enumerate(values.keys()):
+                if i <= 3:
+                    values_new[key] = values[key]
+                    print(values_new)
+                o = all((bool(re.fullmatch(
+                    "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
+                if not o:
+                    sg.popup(
+                        "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    window.close()
+                    continue
+
+        r = np.arange(float(values[1]), float(values[2]), float(values[3]))
+        x0 = float(values[0])
+        bif1 = partial(sine_sinh_bif, x0)
+        le1 = partial(sine_sinh_le, x0)
+
+        #start_time = time.time()
+
+        if event == 'Bifurcation Plot':
+
+            X = []
+            Y = []
+            # create and configure the process pool
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            line = ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # window.FindElement().Update('')
+            window.refresh()
+            continue
+        if event == 'Lyapunov Plot':
+
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
+            ax.axhline(0)
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            window.refresh()
+            continue
+        if event == 'Combined Plots':
+            X = []
+            Y = []
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+
+            fig = figure.Figure()
+            ax = fig.add_subplot(211)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+            ax = fig.add_subplot(212)
+            ax.cla()
+            ax.plot(X1, Y1, ".r", alpha=1, ms=1.2)
+            ax.axhline(0)
+            plt.xlabel("k")
+            plt.ylabel("x,LE")
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            window.refresh()
+            continue
+
+    window.close()
+
+def renyi_window():
+
+    layout = [
+        [sg.Text('Give Initial Values for Plot', key="new")],
+        [sg.Text('Initial x',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Initial r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('End of r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Steps',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Button('Bifurcation Plot')],
+        [sg.Button('Lyapunov Plot')],
+        [sg.Button('Combined Plots')],
+        [sg.Canvas(key='controls_cv')],
+        [sg.Column(
+            layout=[
+                [sg.Canvas(key='fig_cv',
+                               # it's important that you set this size
+                               size=(400 * 2, 400)
+                           )]
+            ],
+            background_color='#DAE0E6',
+            pad=(0, 0)
+        )],
+        [sg.Button('Exit')],
+    ]
+    window = sg.Window("Bifurcation Plot", layout,
+                       resizable=True, finalize=True, grab_anywhere=True)
+
+    while True:
+
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        print(values)
+
+        values_new = {}
+        if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
+            for i, key in enumerate(values.keys()):
+                if i <= 3:
+                    values_new[key] = values[key]
+                    print(values_new)
+                o = all((bool(re.fullmatch(
+                    "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
+                if not o:
+                    sg.popup(
+                        "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    window.close()
+                    continue
+
+        r = np.arange(float(values[1]), float(values[2]), float(values[3]))
+        x0 = float(values[0])
+        bif1 = partial(renyi_bif, x0)
+        le1 = partial(renyi_le, x0)
+
+        #start_time = time.time()
+
+        if event == 'Bifurcation Plot':
+
+            X = []
+            Y = []
+            # create and configure the process pool
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            line = ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # window.FindElement().Update('')
+            window.refresh()
+            continue
+        if event == 'Lyapunov Plot':
+
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
+            ax.axhline(0)
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            window.refresh()
+            continue
+        if event == 'Combined Plots':
+            X = []
+            Y = []
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+
+            fig = figure.Figure()
+            ax = fig.add_subplot(211)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+            ax = fig.add_subplot(212)
+            ax.cla()
+            ax.plot(X1, Y1, ".r", alpha=1, ms=1.2)
+            ax.axhline(0)
+            plt.xlabel("k")
+            plt.ylabel("x,LE")
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            window.refresh()
+            continue
+
+    window.close()
+def sine_window():
+
+    layout = [
+        [sg.Text('Give Initial Values for Plot', key="new")],
+        [sg.Text('Initial x',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Initial r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('End of r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Steps',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Button('Bifurcation Plot')],
+        [sg.Button('Lyapunov Plot')],
+        [sg.Button('Combined Plots')],
+        [sg.Canvas(key='controls_cv')],
+        [sg.Column(
+            layout=[
+                [sg.Canvas(key='fig_cv',
+                               # it's important that you set this size
+                               size=(400 * 2, 400)
+                           )]
+            ],
+            background_color='#DAE0E6',
+            pad=(0, 0)
+        )],
+        [sg.Button('Exit')],
+    ]
+    window = sg.Window("Bifurcation Plot", layout,
+                       resizable=True, finalize=True, grab_anywhere=True)
+
+    while True:
+
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        print(values)
+
+        values_new = {}
+        if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
+            for i, key in enumerate(values.keys()):
+                if i <= 3:
+                    values_new[key] = values[key]
+                    print(values_new)
+                o = all((bool(re.fullmatch(
+                    "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
+                if not o:
+                    sg.popup(
+                        "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    window.close()
+                    continue
+
+        r = np.arange(float(values[1]), float(values[2]), float(values[3]))
+        x0 = float(values[0])
+        bif1 = partial(sine_bif, x0)
+        le1 = partial(sine_le, x0)
+
+        #start_time = time.time()
+
+        if event == 'Bifurcation Plot':
+
+            X = []
+            Y = []
+            # create and configure the process pool
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            line = ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # window.FindElement().Update('')
+            window.refresh()
+            continue
+        if event == 'Lyapunov Plot':
+
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
+            ax.axhline(0)
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            window.refresh()
+            continue
+        if event == 'Combined Plots':
+            X = []
+            Y = []
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+
+            fig = figure.Figure()
+            ax = fig.add_subplot(211)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+            ax = fig.add_subplot(212)
+            ax.cla()
+            ax.plot(X1, Y1, ".r", alpha=1, ms=1.2)
+            ax.axhline(0)
+            plt.xlabel("k")
+            plt.ylabel("x,LE")
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            window.refresh()
+            continue
+
+    window.close()
+def cubic_logistic_window():
+
+    layout = [
+        [sg.Text('Give Initial Values for Plot', key="new")],
+        [sg.Text('Initial x',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Initial r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('End of r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Steps',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Button('Bifurcation Plot')],
+        [sg.Button('Lyapunov Plot')],
+        [sg.Button('Combined Plots')],
+        [sg.Canvas(key='controls_cv')],
+        [sg.Column(
+            layout=[
+                [sg.Canvas(key='fig_cv',
+                               # it's important that you set this size
+                               size=(400 * 2, 400)
+                           )]
+            ],
+            background_color='#DAE0E6',
+            pad=(0, 0)
+        )],
+        [sg.Button('Exit')],
+    ]
+    window = sg.Window("Bifurcation Plot", layout,
+                       resizable=True, finalize=True, grab_anywhere=True)
+
+    while True:
+
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        print(values)
+
+        values_new = {}
+        if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
+            for i, key in enumerate(values.keys()):
+                if i <= 3:
+                    values_new[key] = values[key]
+                    print(values_new)
+                o = all((bool(re.fullmatch(
+                    "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
+                if not o:
+                    sg.popup(
+                        "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    window.close()
+                    continue
+
+        r = np.arange(float(values[1]), float(values[2]), float(values[3]))
+        x0 = float(values[0])
+        bif1 = partial(cubic_logistic_bif, x0)
+        le1 = partial(cubic_logistic_le, x0)
+
+        #start_time = time.time()
+
+        if event == 'Bifurcation Plot':
+
+            X = []
+            Y = []
+            # create and configure the process pool
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            line = ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # window.FindElement().Update('')
+            window.refresh()
+            continue
+        if event == 'Lyapunov Plot':
+
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
+            ax.axhline(0)
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            window.refresh()
+            continue
+        if event == 'Combined Plots':
+            X = []
+            Y = []
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+
+            fig = figure.Figure()
+            ax = fig.add_subplot(211)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+            ax = fig.add_subplot(212)
+            ax.cla()
+            ax.plot(X1, Y1, ".r", alpha=1, ms=1.2)
+            ax.axhline(0)
+            plt.xlabel("k")
+            plt.ylabel("x,LE")
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            window.refresh()
+            continue
+
+    window.close()
+
+def cubic_window():
+
+    layout = [
+        [sg.Text('Give Initial Values for Plot', key="new")],
+        [sg.Text('Initial x',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Initial r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('End of r', size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Text('Steps',  size=(15, 1), key='Status'), sg.InputText()],
+        [sg.Button('Bifurcation Plot')],
+        [sg.Button('Lyapunov Plot')],
+        [sg.Button('Combined Plots')],
+        [sg.Canvas(key='controls_cv')],
+        [sg.Column(
+            layout=[
+                [sg.Canvas(key='fig_cv',
+                               # it's important that you set this size
+                               size=(400 * 2, 400)
+                           )]
+            ],
+            background_color='#DAE0E6',
+            pad=(0, 0)
+        )],
+        [sg.Button('Exit')],
+    ]
+    window = sg.Window("Bifurcation Plot", layout,
+                       resizable=True, finalize=True, grab_anywhere=True)
+
+    while True:
+
+        event, values = window.read()
+        if event == "Exit" or event == sg.WIN_CLOSED:
+            break
+        print(values)
+
+        values_new = {}
+        if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
+            for i, key in enumerate(values.keys()):
+                if i <= 3:
+                    values_new[key] = values[key]
+                    print(values_new)
+                o = all((bool(re.fullmatch(
+                    "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
+                if not o:
+                    sg.popup(
+                        "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    window.close()
+                    continue
+
+        r = np.arange(float(values[1]), float(values[2]), float(values[3]))
+        x0 = float(values[0])
+        bif1 = partial(cubic_bif, x0)
+        le1 = partial(cubic_le, x0)
+
+        #start_time = time.time()
+
+        if event == 'Bifurcation Plot':
+
+            X = []
+            Y = []
+            # create and configure the process pool
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            line = ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # window.FindElement().Update('')
+            window.refresh()
+            continue
+        if event == 'Lyapunov Plot':
+
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            fig = figure.Figure()
+            ax = fig.add_subplot(111)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
+            ax.axhline(0)
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            window.refresh()
+            continue
+        if event == 'Combined Plots':
+            X = []
+            Y = []
+            X1 = []
+            Y1 = []
+            for i, ch in enumerate(map(le1, r)):
+                X1.append(r[i])
+                Y1.append(ch)
+            for i, ch in enumerate(map(bif1, r)):
+                x1 = np.ones(len(ch))*r[i]
+                X.append(x1)
+                Y.append(ch)
+
+            fig = figure.Figure()
+            ax = fig.add_subplot(211)
+            DPI = fig.get_dpi()
+            fig.set_size_inches(505 * 2 / float(DPI), 707 / float(DPI))
+            ax.cla()
+            ax.plot(X, Y, ".k", alpha=1, ms=1.2)
+            ax = fig.add_subplot(212)
+            ax.cla()
+            ax.plot(X1, Y1, ".r", alpha=1, ms=1.2)
+            ax.axhline(0)
+            plt.xlabel("k")
+            plt.ylabel("x,LE")
+
+            rs = RectangleSelector(ax, line_select_callback,
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
+            draw_figure_w_toolbar(
+                window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
+            # for i, key in enumerate(values):
+            #     window[i].update("")
+            window.refresh()
+            continue
+
+    window.close()   
+def main():
+    layout = [[sg.Text('Choose the Plot you want to run')],
+                [sg.Text('1.'),sg.Button('Logistic Map', key="open3")],
+              [sg.Text('2.'),sg.Button('Chebyshev Map', key="open1")],
+              [sg.Text('3.'),sg.Button('Sine-Sinh Map', key="open2")],
+              [sg.Text('4.'),sg.Button('Sine Map', key="open4")],
+              [sg.Text('5.'),sg.Button('Renyi Map', key="open5")],
+              [sg.Text('6.'),sg.Button('Cubic Logistic Map', key="open6")],
+              [sg.Text('7.'),sg.Button('Cubic Map', key="open7")],
+              [sg.Text('8.'),sg.Button('Variation of Logistic Map', key="open8")],
+              [sg.Text('9.'),sg.Button('Variation of Cheb Map', key="open9")],
+              [sg.Text('10.'),sg.Button('Variation of Sine-Sinh Map', key="open10")],
+              [sg.Button('Exit',size=(15,2)), sg.B('Help',size=(15,2))]
+              ]
+    window = sg.Window('Bifurcation diagram',  layout, size=(
+        500, 500), resizable=True, finalize=True, grab_anywhere=True,return_keyboard_events=True)
+    while True:
         window, event, values = sg.read_all_windows()
+        #if event == sg.popup("READ THE HELP FIRST")
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
         if event == "Help":
-            window_help.read()
-            if event == "Cancel" or event == sg.WIN_CLOSED:
-                window_help.close()
-                continue
-        if event == "open":
+            sg.popup("Choose the map you want to work with and then insert the values, and click the three buttons. Example above:\n\nInitial x = 0 \nq =-0.1 \nInitial r=0 \nEnd of r=1\nSteps=0.0001\n\n'q' parameter is only for the variations of the maps.\n\n'Steps' are the value you insert divided by the 'End of r'.\nIn the example above the STEPS will be 1/0.0001=10000!")
+            continue
+        if event == "open8":
             extralogistic_window()
             continue
         if event == "open1":
-            le_window()
+            chebysev_window()
             continue
         if event == "open2":
-            combined_window()
+            sine_sinh_window()
             continue
-        
-        # y[i+1] = r * y[i] * (1 - y[i])) % logistic
-        #x(i)=r(j)*x(i-1)*(1-x(i-1))*(2+x(i-1))%cubic logistic
-        #x(i)=r(j)*x(i-1)*(1-x(i-1)^2) %cubic
-        # x(i)=mod(k*x(i-1),1); %renyi
-        # x(i)=cos(k*acos(x(i-1))); %cheb       
-        #x(i)=r(j)*sin(pi*x(i-1)) %sine
-        # x(i)=k*sin(pi*sinh(pi*sin(pi*x(i-1)))); %sine-sinh
+        if event == "open3":
+            logistic_window()
+            continue
+        if event == "open4":
+            sine_window()
+            continue
+        if event == "open5":
+            renyi_window()
+            continue
+        if event == "open6":
+            cubic_logistic_window()
+            continue
+        if event == "open7":
+            cubic_window()
+            continue
+        if event == "open9":
+            extracheb_window()
+            continue
+        if event == "open10":
+            extrasine_sinh_window()
+            continue
 
-        #math . cos ( k **q * math . acos ( q*x [ i − 1 ] ) ) parallagh cheb
-        #x[i] = k * math.sin(k * math.sinh(q * math.sin(2 * x[i - 1]))) parallagh np.sine - np.sinh
+
         window.close()
 
 
 if __name__ == "__main__":
     main()
+
+
+# x=r * x * (1 - x) % logistic r- 2*r*x
+# x(i)=r*x(i-1)*(1-x(i-1))*(2+x(i-1))%cubic logistic −r*(3*x^2+2*x−2)
+# x(i)=r(j)*x(i-1)*(1-x(i-1)^2) %cubic r−3*r*x^2
+# x(i)=np.mod(r*x(i-1),1); %renyi r
+# x(i)=cos(k*acos(x(i-1))); %cheb r*math.sin(r*math.acos(x))/(math.sqrt(1−x^2))
+# x(i)=r(j)*sin(pi*x(i-1)) %sine pi*r*math.cos(pi*x)
+# x(i)=k*sin(pi*sinh(pi*sin(pi*x(i-1)))); %sine-sinh pi^3*r*math.cos(pi*x)math.cosh(pi*math.sin(pi*x))math.cos(pi*math.sinh(math.sin(pi*x)))
+# math . cos ( k **q * math . acos ( q*x [ i − 1 ] ) ) parallagh cheb
+# x[i] = k * math.sin(k * math.sinh(q * math.sin(2 * x[i - 1]))) parallagh np.sine - np.sinh
