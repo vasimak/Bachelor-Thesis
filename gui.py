@@ -276,7 +276,7 @@ def extralogistic_window():
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
-
+    test=False
     while True:
 
         event, values = window.read()
@@ -287,6 +287,7 @@ def extralogistic_window():
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
+    
                 if i <= 4:
                     values_new[key] = values[key]
                     print(values_new)
@@ -295,8 +296,9 @@ def extralogistic_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    window.close()
-                    continue
+                    break
+            continue
+               
 
         r = np.arange(float(values[2]), float(values[3]), float(values[4]))
         x0 = float(values[0])
@@ -440,8 +442,9 @@ def logistic_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    window.close()
-                    continue
+                    
+                    break
+            continue        
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -584,8 +587,9 @@ def chebysev_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    window.close()
-                    continue
+                   
+                    break
+            continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -728,8 +732,9 @@ def sine_sinh_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    window.close()
-                    continue
+                   
+                    break
+            continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -871,8 +876,9 @@ def renyi_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    window.close()
-                    continue
+                   
+                    break
+            continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -1013,8 +1019,9 @@ def sine_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    window.close()
-                    continue
+                   
+                    break
+            continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -1155,8 +1162,9 @@ def cubic_logistic_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    window.close()
-                    continue
+                   
+                    break
+            continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -1298,8 +1306,8 @@ def cubic_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    window.close()
-                    continue
+                    break
+            continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
