@@ -19,8 +19,8 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 
 matplotlib.use('TkAgg')
 
-sg.theme('DarkTeal')
-haserror=False
+sg.theme('Default1')
+haserror = False
 X = []
 Y = []
 X1 = []
@@ -156,9 +156,11 @@ def sine_sinh_le(x0, r):
     for i in range(1, N):
         x = r*math.sin(math.pi*math.sinh(math.pi*math.sin(math.pi*x)))
         # derivative of the equation you calculate
-        lyapunov += np.log(np.abs(math.pi**3*r*math.cos(math.pi*x)*math.cosh(math.pi*math.sin(math.pi*x))*math.cos(math.pi*math.sinh(math.sin(math.pi*x)))))
+        lyapunov += np.log(np.abs(math.pi**3*r*math.cos(math.pi*x)*math.cosh(
+            math.pi*math.sin(math.pi*x))*math.cos(math.pi*math.sinh(math.sin(math.pi*x)))))
         l1 = lyapunov/N
     return (l1)
+
 
 @jit(nopython=True, parallel=True)
 def renyi_bif(x0, r):
@@ -166,8 +168,9 @@ def renyi_bif(x0, r):
     x = np.zeros(len(range(0, N)))
     x[0] = x0
     for i in range(1, N):
-        x[i]=np.mod(r*x[i-1],1)
+        x[i] = np.mod(r*x[i-1], 1)
     return (x[-130:])
+
 
 @jit(nopython=True)
 def renyi_le(x0, r):
@@ -176,11 +179,12 @@ def renyi_le(x0, r):
     l1 = 0
     x = x0
     for i in range(1, N):
-        x=np.mod(r*x,1)
+        x = np.mod(r*x, 1)
         # derivative of the equation you calculate
-        lyapunov += np.log(np.abs(np.mod(r,1)))
+        lyapunov += np.log(np.abs(np.mod(r, 1)))
         l1 = lyapunov/N
     return (l1)
+
 
 @jit(nopython=True, parallel=True)
 def sine_bif(x0, r):
@@ -188,8 +192,9 @@ def sine_bif(x0, r):
     x = np.zeros(len(range(0, N)))
     x[0] = x0
     for i in range(1, N):
-        x[i]=r*math.sin(math.pi*x[i-1])
+        x[i] = r*math.sin(math.pi*x[i-1])
     return (x[-130:])
+
 
 @jit(nopython=True)
 def sine_le(x0, r):
@@ -198,20 +203,24 @@ def sine_le(x0, r):
     l1 = 0
     x = x0
     for i in range(1, N):
-        x=r*math.sin(math.pi*x)
+        x = r*math.sin(math.pi*x)
         # derivative of the equation you calculate
         lyapunov += np.log(np.abs(math.pi*r*math.cos(math.pi*x)))
         l1 = lyapunov/N
     return (l1)
 
+
 jit(nopython=True, parallel=True)
+
+
 def cubic_logistic_bif(x0, r):
     N = 1000
     x = np.zeros(len(range(0, N)))
     x[0] = x0
     for i in range(1, N):
-        x[i]=r*x[i-1]*(1-x[i-1])*(2+x[i-1])
+        x[i] = r*x[i-1]*(1-x[i-1])*(2+x[i-1])
     return (x[-130:])
+
 
 @jit(nopython=True)
 def cubic_logistic_le(x0, r):
@@ -220,20 +229,24 @@ def cubic_logistic_le(x0, r):
     l1 = 0
     x = x0
     for i in range(1, N):
-        x=r*x*(1-x)*(2+x)
+        x = r*x*(1-x)*(2+x)
         # derivative of the equation you calculate
         lyapunov += np.log(np.abs(-r*(3*x**2+2*x-2)))
         l1 = lyapunov/N
     return (l1)
 
+
 jit(nopython=True, parallel=True)
+
+
 def cubic_bif(x0, r):
     N = 1000
     x = np.zeros(len(range(0, N)))
     x[0] = x0
     for i in range(1, N):
-        x[i]=r*x[i-1]*(1-x[i-1]**2)
+        x[i] = r*x[i-1]*(1-x[i-1]**2)
     return (x[-130:])
+
 
 @jit(nopython=True)
 def cubic_le(x0, r):
@@ -242,13 +255,15 @@ def cubic_le(x0, r):
     l1 = 0
     x = x0
     for i in range(1, N):
-        x=r*x*(1-x**2)
+        x = r*x*(1-x**2)
         # derivative of the equation you calculate
         lyapunov += np.log(np.abs(r-3*r*x**2))
         l1 = lyapunov/N
     return (l1)
 # x(i)=r*x(i-1)*(1-x(i-1))*(2+x(i-1))%cubic logistic −r*(3*x^2+2*x−2)
 # x(i)=r(j)*x(i-1)*(1-x(i-1)^2) %cubic r−3*r*x^2
+
+
 def extralogistic_window():
 
     layout = [
@@ -276,7 +291,6 @@ def extralogistic_window():
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
-    test=False
     while True:
 
         event, values = window.read()
@@ -287,7 +301,7 @@ def extralogistic_window():
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
-    
+
                 if i <= 4:
                     values_new[key] = values[key]
                     print(values_new)
@@ -296,9 +310,13 @@ def extralogistic_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    haserror = True
                     break
-            continue
-               
+                else:
+                    haserror = False
+
+            if haserror == True:
+                continue
 
         r = np.arange(float(values[2]), float(values[3]), float(values[4]))
         x0 = float(values[0])
@@ -421,7 +439,7 @@ def logistic_window():
         )],
         [sg.Button('Exit')],
     ]
-    window = sg.Window("Bifurcation Plot", layout,
+    window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
@@ -438,20 +456,17 @@ def logistic_window():
                     values_new[key] = values[key]
                     print(values_new)
                     o = all((bool(re.fullmatch(
-                    "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
+                        "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    haserror=True
+                    haserror = True
                     break
-                else: haserror=False
-        
-            if haserror==True:
-                continue
-                  
-                    
+                else:
+                    haserror = False
 
-                
+            if haserror == True:
+                continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -545,7 +560,7 @@ def logistic_window():
             #     window[i].update("")
             window.refresh()
             continue
-    
+
     window.close()
 
 
@@ -573,7 +588,7 @@ def chebysev_window():
         )],
         [sg.Button('Exit')],
     ]
-    window = sg.Window("Bifurcation Plot", layout,
+    window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
@@ -594,9 +609,14 @@ def chebysev_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                   
+
+                    haserror = True
                     break
-            continue
+                else:
+                    haserror = False
+
+            if haserror == True:
+                continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -718,7 +738,7 @@ def sine_sinh_window():
         )],
         [sg.Button('Exit')],
     ]
-    window = sg.Window("Bifurcation Plot", layout,
+    window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
@@ -739,9 +759,14 @@ def sine_sinh_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                   
+
+                    haserror = True
                     break
-            continue
+                else:
+                    haserror = False
+
+            if haserror == True:
+                continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -838,6 +863,7 @@ def sine_sinh_window():
 
     window.close()
 
+
 def renyi_window():
 
     layout = [
@@ -862,7 +888,7 @@ def renyi_window():
         )],
         [sg.Button('Exit')],
     ]
-    window = sg.Window("Bifurcation Plot", layout,
+    window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
@@ -883,9 +909,14 @@ def renyi_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                   
+
+                    haserror = True
                     break
-            continue
+                else:
+                    haserror = False
+
+            if haserror == True:
+                continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -981,6 +1012,8 @@ def renyi_window():
             continue
 
     window.close()
+
+
 def sine_window():
 
     layout = [
@@ -1005,7 +1038,7 @@ def sine_window():
         )],
         [sg.Button('Exit')],
     ]
-    window = sg.Window("Bifurcation Plot", layout,
+    window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
@@ -1026,9 +1059,14 @@ def sine_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                   
+
+                    haserror = True
                     break
-            continue
+                else:
+                    haserror = False
+
+            if haserror == True:
+                continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -1124,6 +1162,8 @@ def sine_window():
             continue
 
     window.close()
+
+
 def cubic_logistic_window():
 
     layout = [
@@ -1148,7 +1188,7 @@ def cubic_logistic_window():
         )],
         [sg.Button('Exit')],
     ]
-    window = sg.Window("Bifurcation Plot", layout,
+    window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
@@ -1169,9 +1209,14 @@ def cubic_logistic_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                   
+
+                    haserror = True
                     break
-            continue
+                else:
+                    haserror = False
+
+            if haserror == True:
+                continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -1268,6 +1313,7 @@ def cubic_logistic_window():
 
     window.close()
 
+
 def cubic_window():
 
     layout = [
@@ -1292,7 +1338,7 @@ def cubic_window():
         )],
         [sg.Button('Exit')],
     ]
-    window = sg.Window("Bifurcation Plot", layout,
+    window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
 
     while True:
@@ -1313,8 +1359,13 @@ def cubic_window():
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
+                    haserror = True
                     break
-            continue
+                else:
+                    haserror = False
+
+            if haserror == True:
+                continue
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -1409,26 +1460,30 @@ def cubic_window():
             window.refresh()
             continue
 
-    window.close()   
+    window.close()
+
+
 def main():
-    layout = [[sg.Text('Choose the Plot you want to run')],
-                [sg.Text('1.'),sg.Button('Logistic Map', key="open3")],
-              [sg.Text('2.'),sg.Button('Chebyshev Map', key="open1")],
-              [sg.Text('3.'),sg.Button('Sine-Sinh Map', key="open2")],
-              [sg.Text('4.'),sg.Button('Sine Map', key="open4")],
-              [sg.Text('5.'),sg.Button('Renyi Map', key="open5")],
-              [sg.Text('6.'),sg.Button('Cubic Logistic Map', key="open6")],
-              [sg.Text('7.'),sg.Button('Cubic Map', key="open7")],
-              [sg.Text('8.'),sg.Button('Variation of Logistic Map', key="open8")],
-              [sg.Text('9.'),sg.Button('Variation of Cheb Map', key="open9")],
-              [sg.Text('10.'),sg.Button('Variation of Sine-Sinh Map', key="open10")],
-              [sg.Button('Exit',size=(15,2)), sg.B('Help',size=(15,2))]
+    layout = [[sg.Text('READ THE HELP FIRST and then choose the Map you want to run:')],
+              [sg.Text('1.'), sg.Button('Logistic Map', key="open3")],
+              [sg.Text('2.'), sg.Button('Chebyshev Map', key="open1")],
+              [sg.Text('3.'), sg.Button('Sine-Sinh Map', key="open2")],
+              [sg.Text('4.'), sg.Button('Sine Map', key="open4")],
+              [sg.Text('5.'), sg.Button('Renyi Map', key="open5")],
+              [sg.Text('6.'), sg.Button('Cubic Logistic Map', key="open6")],
+              [sg.Text('7.'), sg.Button('Cubic Map', key="open7")],
+              [sg.Text('8.'), sg.Button(
+                  'Variation of Logistic Map', key="open8")],
+              [sg.Text('9.'), sg.Button('Variation of Cheb Map', key="open9")],
+              [sg.Text('10.'), sg.Button(
+                  'Variation of Sine-Sinh Map', key="open10")],
+              [sg.Button('Exit', size=(15, 2)), sg.B('Help', size=(15, 2))]
               ]
     window = sg.Window('Bifurcation diagram',  layout, size=(
-        500, 500), resizable=True, finalize=True, grab_anywhere=True,return_keyboard_events=True)
+        500, 500), resizable=True, finalize=True, grab_anywhere=True, return_keyboard_events=True)
     while True:
         window, event, values = sg.read_all_windows()
-        #if event == sg.popup("READ THE HELP FIRST")
+        # if event == sg.popup("READ THE HELP FIRST")
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
         if event == "Help":
@@ -1464,7 +1519,6 @@ def main():
         if event == "open10":
             extrasine_sinh_window()
             continue
-
 
         window.close()
 
