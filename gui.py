@@ -20,7 +20,7 @@ from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg, NavigationToolb
 matplotlib.use('TkAgg')
 
 sg.theme('DarkTeal')
-
+haserror=False
 X = []
 Y = []
 X1 = []
@@ -437,14 +437,21 @@ def logistic_window():
                 if i <= 3:
                     values_new[key] = values[key]
                     print(values_new)
-                o = all((bool(re.fullmatch(
+                    o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
                     sg.popup(
                         "Insert only numbers and characters like '+', '-', '.', '*' ")
-                    
+                    haserror=True
                     break
-            continue        
+                else: haserror=False
+        
+            if haserror==True:
+                continue
+                  
+                    
+
+                
 
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
@@ -538,7 +545,7 @@ def logistic_window():
             #     window[i].update("")
             window.refresh()
             continue
-
+    
     window.close()
 
 
