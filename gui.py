@@ -211,6 +211,8 @@ def sine_le(x0, r):
 
 
 jit(nopython=True, parallel=True)
+
+
 def cubic_logistic_bif(x0, r):
     N = 1000
     x = np.zeros(len(range(0, N)))
@@ -235,6 +237,8 @@ def cubic_logistic_le(x0, r):
 
 
 jit(nopython=True, parallel=True)
+
+
 def cubic_bif(x0, r):
     N = 1000
     x = np.zeros(len(range(0, N)))
@@ -257,51 +261,59 @@ def cubic_le(x0, r):
         l1 = lyapunov/N
     return (l1)
 
+
 jit(nopython=True, parallel=True)
-def extracheb_bif(q0,x0, r):
+
+
+def extracheb_bif(q0, x0, r):
     N = 1000
     x = np.zeros(len(range(0, N)))
     x[0] = x0
-    q=q0
+    q = q0
     for i in range(1, N):
         x[i] = math.cos(r**q * math.acos(q*x[i - 1]))
     return (x[-130:])
 
+
 @jit(nopython=True)
-def extracheb_le(q0,x0, r):
+def extracheb_le(q0, x0, r):
     N = 1000
     lyapunov = 0
     l1 = 0
-    q=q0
+    q = q0
     x = x0
     for i in range(1, N):
         x = r*x*(1-x**2)
         # derivative of the equation you calculate
-        lyapunov += np.log(np.abs((q*r**q*math.sin(r**q*math.arccos(q*x)))/(math.sqrt(1-(q**2*x**2)))))
+        lyapunov += np.log(np.abs((q*r**q*math.sin(r**q *
+                           math.arccos(q*x)))/(math.sqrt(1-(q**2*x**2)))))
         l1 = lyapunov/N
     return (l1)
 
+
 @jit(nopython=True, parallel=True)
-def extrasine_sinh_bif(q0,x0, r):
+def extrasine_sinh_bif(q0, x0, r):
     N = 1000
     x = np.zeros(len(range(0, N)))
     x[0] = x0
-    q=q0
+    q = q0
     for i in range(1, N):
         x[i] = r * math.sin(r * math.sinh(q * math.sin(2 * x[i - 1])))
     return (x[-130:])
 
+
 @jit(nopython=True)
-def extrasine_sinh_le(q0,x0, r):
+def extrasine_sinh_le(q0, x0, r):
     N = 1000
     lyapunov = 0
     l1 = 0
     x = x0
-    q=q0
+    q = q0
     for i in range(1, N):
         x = r*x*(1-x**2)
         # derivative of the equation you calculate
-        lyapunov += np.log(np.abs(2*q*r*2*math.cos(2*x)*math.cosh(q*math.sin(2*x))*math.cos(r*math.sinh(q*math.sin(2*x)))))
+        lyapunov += np.log(np.abs(2*q*r*2*math.cos(2*x)*math.cosh(q *
+                           math.sin(2*x))*math.cos(r*math.sinh(q*math.sin(2*x)))))
         l1 = lyapunov/N
     return (l1)
 
@@ -318,7 +330,7 @@ def extralogistic_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -331,7 +343,7 @@ def extralogistic_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -341,7 +353,6 @@ def extralogistic_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
@@ -349,7 +360,7 @@ def extralogistic_window():
 
                 if i <= 4:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -363,20 +374,18 @@ def extralogistic_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[2]==values[3] or values[2]>=values[3] :
+            if values[2] == values[3] or values[2] >= values[3]:
                 sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[4])<0 or float(values[4])>1:
+            elif float(values[4]) < 0 or float(values[4]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
-         
+
         r = np.arange(float(values[2]), float(values[3]), float(values[4]))
         x0 = float(values[0])
         q0 = float(values[1])
         bif1 = partial(bif, q0, x0)
         le1 = partial(le, q0, x0)
-
-        
 
         if event == 'Bifurcation Plot':
 
@@ -387,7 +396,7 @@ def extralogistic_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -477,7 +486,7 @@ def logistic_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -490,25 +499,24 @@ def logistic_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
     window.Maximize()
-    
+
     while True:
 
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
                 if i <= 3:
                     values_new[key] = values[key]
-                    
+
                     o = all((bool(re.fullmatch(
                         "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -522,19 +530,17 @@ def logistic_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[1]==values[2] or values[1]>=values[2] :
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[1] == values[2] or values[1] >= values[2]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[3])<0 or float(values[3])>1:
+            elif float(values[3]) < 0 or float(values[3]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
-            
+
         r = np.arange(float(values[1]), float(values[2]), float(values[3]))
         x0 = float(values[0])
         bif1 = partial(log_bif, x0)
         le1 = partial(log_le, x0)
-
-        
 
         if event == 'Bifurcation Plot':
 
@@ -545,7 +551,7 @@ def logistic_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -616,7 +622,7 @@ def logistic_window():
                                    interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
@@ -634,7 +640,7 @@ def chebysev_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -647,7 +653,7 @@ def chebysev_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -658,14 +664,13 @@ def chebysev_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
                 if i <= 3:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -680,10 +685,10 @@ def chebysev_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[1]==values[2] or values[1]>=values[2] :
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[1] == values[2] or values[1] >= values[2]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[3])<0 or float(values[3])>1:
+            elif float(values[3]) < 0 or float(values[3]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
 
@@ -691,8 +696,6 @@ def chebysev_window():
         x0 = float(values[0])
         bif1 = partial(cheb_bif, x0)
         le1 = partial(cheb_le, x0)
-
-        
 
         if event == 'Bifurcation Plot':
 
@@ -703,7 +706,7 @@ def chebysev_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -774,7 +777,7 @@ def chebysev_window():
                                    interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
@@ -792,7 +795,7 @@ def sine_sinh_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -805,7 +808,7 @@ def sine_sinh_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -816,14 +819,13 @@ def sine_sinh_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
                 if i <= 3:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -838,10 +840,10 @@ def sine_sinh_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[1]==values[2] or values[1]>=values[2] :
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[1] == values[2] or values[1] >= values[2]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[3])<0 or float(values[3])>1:
+            elif float(values[3]) < 0 or float(values[3]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
 
@@ -849,8 +851,6 @@ def sine_sinh_window():
         x0 = float(values[0])
         bif1 = partial(sine_sinh_bif, x0)
         le1 = partial(sine_sinh_le, x0)
-
-        
 
         if event == 'Bifurcation Plot':
 
@@ -861,7 +861,7 @@ def sine_sinh_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -932,7 +932,7 @@ def sine_sinh_window():
                                    interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
@@ -950,7 +950,7 @@ def renyi_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -963,7 +963,7 @@ def renyi_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -974,14 +974,13 @@ def renyi_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
                 if i <= 3:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -996,10 +995,10 @@ def renyi_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[1]==values[2] or values[1]>=values[2] :
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[1] == values[2] or values[1] >= values[2]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[3])<0 or float(values[3])>1:
+            elif float(values[3]) < 0 or float(values[3]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
 
@@ -1007,8 +1006,6 @@ def renyi_window():
         x0 = float(values[0])
         bif1 = partial(renyi_bif, x0)
         le1 = partial(renyi_le, x0)
-
-        
 
         if event == 'Bifurcation Plot':
 
@@ -1019,7 +1016,7 @@ def renyi_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -1090,7 +1087,7 @@ def renyi_window():
                                    interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
@@ -1108,7 +1105,7 @@ def sine_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -1121,7 +1118,7 @@ def sine_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -1132,14 +1129,13 @@ def sine_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
                 if i <= 3:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -1154,10 +1150,10 @@ def sine_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[1]==values[2] or values[1]>=values[2] :
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[1] == values[2] or values[1] >= values[2]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[3])<0 or float(values[3])>1:
+            elif float(values[3]) < 0 or float(values[3]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
 
@@ -1165,8 +1161,6 @@ def sine_window():
         x0 = float(values[0])
         bif1 = partial(sine_bif, x0)
         le1 = partial(sine_le, x0)
-
-        
 
         if event == 'Bifurcation Plot':
 
@@ -1177,7 +1171,7 @@ def sine_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -1248,7 +1242,7 @@ def sine_window():
                                    interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
@@ -1266,7 +1260,7 @@ def cubic_logistic_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -1279,7 +1273,7 @@ def cubic_logistic_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -1290,14 +1284,13 @@ def cubic_logistic_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
                 if i <= 3:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -1312,10 +1305,10 @@ def cubic_logistic_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[1]==values[2] or values[1]>=values[2] :
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[1] == values[2] or values[1] >= values[2]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[3])<0 or float(values[3])>1:
+            elif float(values[3]) < 0 or float(values[3]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
 
@@ -1323,8 +1316,6 @@ def cubic_logistic_window():
         x0 = float(values[0])
         bif1 = partial(cubic_logistic_bif, x0)
         le1 = partial(cubic_logistic_le, x0)
-
-        
 
         if event == 'Bifurcation Plot':
 
@@ -1335,7 +1326,7 @@ def cubic_logistic_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -1406,7 +1397,7 @@ def cubic_logistic_window():
                                    interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
@@ -1424,7 +1415,7 @@ def cubic_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -1437,7 +1428,7 @@ def cubic_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -1448,14 +1439,13 @@ def cubic_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
             for i, key in enumerate(values.keys()):
                 if i <= 3:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -1469,10 +1459,10 @@ def cubic_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[1]==values[2] or values[1]>=values[2] :
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[1] == values[2] or values[1] >= values[2]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[3])<0 or float(values[3])>1:
+            elif float(values[3]) < 0 or float(values[3]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
 
@@ -1480,8 +1470,6 @@ def cubic_window():
         x0 = float(values[0])
         bif1 = partial(cubic_bif, x0)
         le1 = partial(cubic_le, x0)
-
-        
 
         if event == 'Bifurcation Plot':
 
@@ -1492,7 +1480,7 @@ def cubic_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -1563,11 +1551,12 @@ def cubic_window():
                                    interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
     window.close()
+
 
 def extracheb_window():
 
@@ -1581,7 +1570,7 @@ def extracheb_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -1594,7 +1583,7 @@ def extracheb_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -1604,7 +1593,6 @@ def extracheb_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
@@ -1612,7 +1600,7 @@ def extracheb_window():
 
                 if i <= 4:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -1626,20 +1614,18 @@ def extracheb_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[2]==values[3] or values[2]>=values[3]:
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[2] == values[3] or values[2] >= values[3]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[4])<0 or float(values[4])>1:
+            elif float(values[4]) < 0 or float(values[4]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
 
         r = np.arange(float(values[2]), float(values[3]), float(values[4]))
         x0 = float(values[0])
         q0 = float(values[1])
-        bif1 = partial(extracheb_bif,q0, x0)
-        le1 = partial(extracheb_le,q0, x0)
-
-        
+        bif1 = partial(extracheb_bif, q0, x0)
+        le1 = partial(extracheb_le, q0, x0)
 
         if event == 'Bifurcation Plot':
 
@@ -1650,7 +1636,7 @@ def extracheb_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -1721,12 +1707,12 @@ def extracheb_window():
                                    interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
     window.close()
-    
+
 
 def extrasine_sinh_window():
 
@@ -1740,7 +1726,7 @@ def extrasine_sinh_window():
         [sg.Button('Bifurcation Plot')],
         [sg.Button('Lyapunov Plot')],
         [sg.Button('Combined Plots')],
-        [sg.Button('Exit',size=(20, 1))],
+        [sg.Button('Exit', size=(20, 1))],
         [sg.T('Here you can control the Plot:')],
         [sg.Canvas(key='controls_cv')],
         [sg.Column(
@@ -1753,7 +1739,7 @@ def extrasine_sinh_window():
             background_color='#DAE0E6',
             pad=(0, 0)
         )],
-        
+
     ]
     window = sg.Window("Plots", layout,
                        resizable=True, finalize=True, grab_anywhere=True)
@@ -1763,7 +1749,6 @@ def extrasine_sinh_window():
         event, values = window.read()
         if event == "Exit" or event == sg.WIN_CLOSED:
             break
-       
 
         values_new = {}
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
@@ -1771,7 +1756,7 @@ def extrasine_sinh_window():
 
                 if i <= 4:
                     values_new[key] = values[key]
-                    
+
                 o = all((bool(re.fullmatch(
                     "((\+|-)?([0-9]+)(\.[0-9]+)?)|((\+|-)?\.?[0-9])", str(j)))) for j in values_new.values())
                 if not o:
@@ -1785,20 +1770,18 @@ def extrasine_sinh_window():
             if haserror == True:
                 continue
         if event == 'Bifurcation Plot' or event == 'Lyapunov Plot' or event == 'Combined Plots':
-            if values[2]==values[3] or values[2]>=values[3] :
-                sg.popup("'End of r' can't be larger than 'Initial r' " )
+            if values[2] == values[3] or values[2] >= values[3]:
+                sg.popup("'End of r' can't be larger than 'Initial r' ")
                 continue
-            elif float(values[4])<0 or float(values[4])>1:
+            elif float(values[4]) < 0 or float(values[4]) > 1:
                 sg.popup("Only numbers between 0 and 1")
                 continue
 
         r = np.arange(float(values[2]), float(values[3]), float(values[4]))
         x0 = float(values[0])
         q0 = float(values[1])
-        bif1 = partial(extrasine_sinh_bif,q0, x0)
-        le1 = partial(extrasine_sinh_le,q0, x0)
-
-        
+        bif1 = partial(extrasine_sinh_bif, q0, x0)
+        le1 = partial(extrasine_sinh_le, q0, x0)
 
         if event == 'Bifurcation Plot':
 
@@ -1809,7 +1792,7 @@ def extrasine_sinh_window():
                 x1 = np.ones(len(ch))*r[i]
                 X.append(x1)
                 Y.append(ch)
-            
+
             fig = figure.Figure()
             ax = fig.add_subplot(111)
             DPI = fig.get_dpi()
@@ -1818,9 +1801,9 @@ def extrasine_sinh_window():
             line = ax.plot(X, Y, ".k", alpha=1, ms=1.2)
 
             rs = RectangleSelector(ax, line_select_callback,
-                                    drawtype='box', useblit=False, button=[1],
-                                    minspanx=5, minspany=5, spancoords='pixels',
-                                    interactive=True)
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
             # window.FindElement().Update('')
@@ -1841,9 +1824,9 @@ def extrasine_sinh_window():
             ax.plot(X1, Y1, ".k", alpha=1, ms=1.2)
             ax.axhline(0)
             rs = RectangleSelector(ax, line_select_callback,
-                                    drawtype='box', useblit=False, button=[1],
-                                    minspanx=5, minspany=5, spancoords='pixels',
-                                    interactive=True)
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
             window.refresh()
@@ -1875,17 +1858,18 @@ def extrasine_sinh_window():
             plt.ylabel("x,LE")
 
             rs = RectangleSelector(ax, line_select_callback,
-                                    drawtype='box', useblit=False, button=[1],
-                                    minspanx=5, minspany=5, spancoords='pixels',
-                                    interactive=True)
+                                   drawtype='box', useblit=False, button=[1],
+                                   minspanx=5, minspany=5, spancoords='pixels',
+                                   interactive=True)
             draw_figure_w_toolbar(
                 window['fig_cv'].TKCanvas, fig, window['controls_cv'].TKCanvas)
-            
+
             window.refresh()
             continue
 
     window.close()
-        
+
+
 def main():
     layout = [[sg.Text('READ THE HELP FIRST and then choose the Map you want to run:')],
               [sg.Text('1.'), sg.Button('Logistic Map', key="open3")],
@@ -1960,10 +1944,9 @@ if __name__ == "__main__":
 # math . cos ( k **q * math . acos ( q*x [ i − 1 ] ) ) parallagh cheb
 # x[i] = k * math.sin(k * math.sinh(q * math.sin(2 * x[i - 1]))) parallagh np.sine - np.sinh
 
-#x[i] = r * math.sin(r * math.sinh(q * math.sin(2 * x[i - 1]))) # np.sine - np.sinh
-#2*q*r*2*math.cos(2*x)*math.cosh(q*math.sin(2*x))*math.cos(r*math.sinh(q*math.sin(2*x)))
+# x[i] = r * math.sin(r * math.sinh(q * math.sin(2 * x[i - 1]))) # np.sine - np.sinh
+# 2*q*r*2*math.cos(2*x)*math.cosh(q*math.sin(2*x))*math.cos(r*math.sinh(q*math.sin(2*x)))
 
+    # x[i] = math.cos(r**q * math.acos(q*x[i - 1])) #cheb
 
-        # x[i] = math.cos(r**q * math.acos(q*x[i - 1])) #cheb
-
-#(q*r**q*math.sin(r**q*math.arccos(q*x)))/(math.sqrt(1-(q**2*x**2)))
+# (q*r**q*math.sin(r**q*math.arccos(q*x)))/(math.sqrt(1-(q**2*x**2)))
